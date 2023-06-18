@@ -54,21 +54,15 @@ public class Planet : MonoBehaviour {
     }
 
     private void Rotate() {
-        //var ownRotationAxis = Quaternion.AngleAxis(inclination, Vector3.forward) * Vector3.up; 
-        //var ownRotationAxis = new Vector3(0.0f, (float) Math.Sin(inclination), (float) Math.Cos(inclination));
-
-        transform.Rotate(ownRotationAxis, ownRotationAngle * Time.deltaTime);
+        transform.Rotate(ownRotationAxis, ownRotationAngle * Time.deltaTime, Space.World);
     }
 
     private void OnDrawGizmos() {
-#if UNITY_EDITOR
         Gizmos.color = Color.yellow;
         
         Gizmos.DrawLine(
             transform.position + ownRotationAxis,
             transform.position - ownRotationAxis
         );
-        
-#endif
     }
 }
