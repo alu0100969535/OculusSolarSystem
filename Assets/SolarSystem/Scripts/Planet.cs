@@ -5,8 +5,6 @@ using SolarSystem;
 using UnityEngine;
 
 public class Planet : MonoBehaviour {
-
-    [SerializeField] private GameObject sun;
     
     [Header("Orbit")]
     [SerializeField] private float distanceFromSun;
@@ -16,14 +14,30 @@ public class Planet : MonoBehaviour {
     [SerializeField] [Tooltip("In degrees relative to Sun's Equator")] private float inclination;
     [SerializeField] private float ownRotationPeriod;
 
+    private GameObject sun;
 
     private Vector3 ownRotationAxis;
     private float ownRotationAngle;
 
     private float orbitAngle;
 
-    private void Awake() {
-        ComputeValues();
+    private bool isRunning;
+    
+    public void Initialize(InitializationParameters initializationParameters) {
+        this.sun = initializationParameters.sun;
+        ComputeValues(initializationParameters);
+    }
+
+    public void PauseMovement() {
+        isRunning = false;
+    }
+
+    public void ResumeMovement() {
+        isRunning = true;
+    }
+
+    public void StartMovement() {
+        isRunning = true;
     }
 
     private void Start() {
@@ -31,10 +45,11 @@ public class Planet : MonoBehaviour {
     }
     
     private void Update() {
-        if(sun != null) {
-            Orbit();
+        if (!isRunning) {
+            return;
         }
-
+        
+        Orbit();
         Rotate();
     }
 
@@ -42,11 +57,11 @@ public class Planet : MonoBehaviour {
         transform.position = (transform.position - sun.transform.position).normalized * distanceFromSun + sun.transform.position;
     }
 
-    private void ComputeValues() {
-        orbitAngle =  1 / period * 360 / Constants.YEAR_DURATION_IN_SECONDS;
+    private void ComputeValues(InitializationParameters initializationParameters) {
+        orbitAngle =  1 / period * 360 / initializationParameters.yearDurationInSeconds;
         
         ownRotationAxis = new Vector3(0.0f, (float) Math.Sin(inclination), (float) Math.Cos(inclination));
-        ownRotationAngle = 1 / ownRotationPeriod * 360 / Constants.DAY_DURATION_IN_SECONDS;
+        ownRotationAngle = 1 / ownRotationPeriod * 360 / initializationParameters.dayDurationInSeconds;
     }
 
     private void Orbit() {
@@ -64,5 +79,11 @@ public class Planet : MonoBehaviour {
             transform.position + ownRotationAxis,
             transform.position - ownRotationAxis
         );
+    }
+
+    public struct InitializationParameters {
+        public GameObject sun;
+        public float yearDurationInSeconds;
+        public float dayDurationInSeconds;
     }
 }
