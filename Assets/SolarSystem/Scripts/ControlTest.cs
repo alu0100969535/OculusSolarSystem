@@ -9,25 +9,18 @@ public class ControlTest : MonoBehaviour {
     [SerializeField] private OVRHand rightHand;
 
     [SerializeField] private GameObject ui;
-
-    [SerializeField] private LineRenderer lineRenderer;
     
     private Color originalColor;
 
     void Start() {
         originalColor = rightHand.gameObject.GetComponent<Renderer>().material.color;
-        lineRenderer.startColor = Color.blue;
-        lineRenderer.endColor = Color.yellow;
-        lineRenderer.startWidth = 0.01f;
-        lineRenderer.endWidth = 0.01f;
-        lineRenderer.positionCount = 2;
     }
 
     // Update is called once per frame
     void Update() {
         SetSystemGestureColor();
         CheckStartButton();
-        CheckPointerGesture();
+        //CheckPointerGesture();
     }
 
     private void SetSystemGestureColor() {
@@ -55,23 +48,14 @@ public class ControlTest : MonoBehaviour {
             var origin = pose.position;
             var dir = transform.TransformDirection(pose.forward);
 
-            if (strength > 0.0f) {
-                Vector3[] vectors = new []{origin, dir * 100};
-                lineRenderer.SetPositions(vectors);
-            }
-
             if (rightHand.GetFingerIsPinching(OVRHand.HandFinger.Index)) {
                 if (Physics.Raycast(origin, dir, out var hit)) {
                     Debug.DrawRay(origin, dir * hit.distance, Color.yellow);
                     Debug.Log("Did Hit");
-                    Vector3[] vectors = new []{origin, dir * hit.distance};
-                    lineRenderer.SetPositions(vectors);
                 }
                 else {
                     Debug.DrawRay(origin, dir * 1000, Color.white);
                     Debug.Log("Did not Hit");
-                    Vector3[] vectors = new []{origin, dir * 100};
-                    lineRenderer.SetPositions(vectors);
                 }
             }
             
