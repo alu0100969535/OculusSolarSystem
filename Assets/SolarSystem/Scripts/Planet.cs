@@ -55,7 +55,7 @@ public class Planet : MonoBehaviour {
     private void SetInitialTransform() {
         transform.position = (transform.position - sun.transform.position).normalized * distanceFromSun + sun.transform.position;
         
-        var rotation = transform.eulerAngles;
+        var rotation = Vector3.zero;
         rotation.x = inclination;
         transform.eulerAngles = rotation;
     }
