@@ -58,13 +58,19 @@ namespace SolarSystem {
 			});
 		}
 
-		public void TestSlider(Single value) {
+		public void SetSpeed(Single value) {
 			foreach (var planet in planets) {
 				planet.Initialize(new Planet.InitializationParameters {
 					sun = sun,
 					yearDurationInSeconds = value,
 					dayDurationInSeconds = value / 365.25f
 				});
+			}
+		}
+
+		public void SetGizmos(bool value) {
+			foreach (var planet in planets) {
+				planet.GizmosEnabled = value;
 			}
 		}
 	}

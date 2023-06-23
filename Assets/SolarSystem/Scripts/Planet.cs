@@ -14,6 +14,24 @@ public class Planet : MonoBehaviour {
     [SerializeField] [Tooltip("In degrees relative to Sun's Equator")] private float inclination;
     [SerializeField] private float ownRotationPeriod;
 
+    [SerializeField] private LineRenderer lineRenderer;
+
+    public bool GizmosEnabled {
+        get => gizmosEnabled;
+        set {
+
+            if (value) {
+                lineRenderer.loop = false;
+                lineRenderer.positionCount = 2;
+                lineRenderer.startWidth = 0.01f;
+                lineRenderer.endWidth = 0.01f;
+            }
+                
+            lineRenderer.enabled = value;
+            gizmosEnabled = value;
+        }
+    }
+
     private GameObject sun;
 
     private Vector3 ownRotationAxis;
@@ -24,7 +42,8 @@ public class Planet : MonoBehaviour {
     private bool isRunning;
 
     private Vector3[] debugOrbitPoints;
-    
+    private bool gizmosEnabled = false;
+
     public void Initialize(InitializationParameters initializationParameters) {
         this.sun = initializationParameters.sun;
         ComputeValues(initializationParameters);
@@ -50,6 +69,10 @@ public class Planet : MonoBehaviour {
         
         Orbit();
         Rotate();
+
+        if (GizmosEnabled) {
+            DrawLineRendererGizmos();
+        }
     }
 
     private void SetInitialTransform() {
@@ -104,6 +127,15 @@ public class Planet : MonoBehaviour {
             var point2 = debugOrbitPoints[nextPointIndex];
             Gizmos.DrawLine(point, point2);
         }
+    }
+
+    private void DrawLineRendererGizmos() {
+        var point1 = transform.position + ownRotationAxis;
+        var point2 = transform.position - ownRotationAxis;
+
+
+        lineRenderer.gameObject.SetActive(true);
+        lineRenderer.SetPositions(new []{point1, point2});
     }
 
     public struct InitializationParameters {
