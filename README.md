@@ -12,10 +12,35 @@ Uses openXR runtime but only has Oculus support enabled.
 
 [Getting Started with Interaction SDK](https://developer.oculus.com/documentation/unity/unity-isdk-getting-started/)
 
+[Creating Ray interactions](https://developer.oculus.com/documentation/unity/unity-isdk-create-ray-interactions/)
+
+[Creating Poke Interactions](https://developer.oculus.com/documentation/unity/unity-isdk-create-poke-interactions/)
+
+[Creating Grab Interactions](https://developer.oculus.com/documentation/unity/unity-isdk-create-hand-grab-interactions/)
+
+[Creating UI](https://developer.oculus.com/documentation/unity/unity-isdk-create-ui/)
+
+
+
 ## Execution in editor
  
+### Static camera following Earth at an angle
 ![](img/view.gif)
+
+### Basic hand recognition
 ![](img/hand_gestures.gif)
+
+### Raycast in Earth (with no effect)
+![](img/RayGesture.gif)
+
+### Grabbing the UI and poking its elements
+![](img/PokeAndGrabGestures.gif)
+
+### Changing the simulation speed
+![](img/PokeSpeed.gif)
+
+### Changing camera from center of the solar system to following Earth (with transition animation!)
+![](img/ChangeCamera.gif)
 
 ## Resources
 
