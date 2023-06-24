@@ -40,6 +40,11 @@ namespace SolarSystem {
 			foreach (var planet in planets) {
 				planet.StartMovement();
 			}
+
+			if (cameraRig.activeInHierarchy) {
+				cameraRig.transform.SetParent(sunPivot, false);
+				sun.GetComponent<Renderer>().enabled = false;
+			}
 		}
 		
 
