@@ -9,10 +9,12 @@ public class ControlTest : MonoBehaviour {
     [SerializeField] private OVRHand rightHand;
 
     [SerializeField] private GameObject ui;
+    [SerializeField] private Transform uiPivot;
     [SerializeField] private float timeThreshold;
     
     private Color originalColor;
     private float timeSinceStartButtonAction;
+    private bool hasShownUIOnce;
 
     void Start() {
         originalColor = rightHand.gameObject.GetComponent<Renderer>().material.color;
@@ -35,6 +37,12 @@ public class ControlTest : MonoBehaviour {
 
     private void CheckStartButton() {
         if (OVRInput.Get(OVRInput.Button.Start) && timeSinceStartButtonAction >= timeThreshold) {
+
+            if (!hasShownUIOnce) {
+                ui.transform.position = uiPivot.position;
+                hasShownUIOnce = true;
+            }
+            
             ui.SetActive(!ui.activeInHierarchy);
             timeSinceStartButtonAction = 0.0f;
         }

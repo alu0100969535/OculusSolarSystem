@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace SolarSystem {
+	[ExecuteAlways]
 	public class GameManager : MonoBehaviour {
 
 		[SerializeField] private GameParameters gameParameters;
@@ -16,6 +17,7 @@ namespace SolarSystem {
 		[SerializeField] private Transform earthPivot;
 
 		private CameraFadeToBlack cameraFadeToBlack;
+		
 		
 		private void Awake() {
 
@@ -31,10 +33,15 @@ namespace SolarSystem {
 		}
 
 		public void Start() {
+			if (!Application.IsPlaying(gameObject)) {
+				return;
+			}
+			
 			foreach (var planet in planets) {
 				planet.StartMovement();
 			}
 		}
+		
 
 		public void SetSunCamera(bool value) {
 			if (!value) {
@@ -72,6 +79,29 @@ namespace SolarSystem {
 			foreach (var planet in planets) {
 				planet.GizmosEnabled = value;
 			}
+		}
+
+		public void SetSeason(Planet.Season season) {
+			foreach (var planet in planets) {
+				planet.PauseMovement();
+				planet.MoveToSeason(season);
+			}
+		}
+
+		public void SetWinterSeason() {
+			SetSeason(Planet.Season.Winter);
+		}
+
+		public void SetSpringSeason() {
+			SetSeason(Planet.Season.Spring);
+		}
+
+		public void SetSummerSeason() {
+			SetSeason(Planet.Season.Summer);
+		}
+
+		public void SetAutumnSeason() {
+			SetSeason(Planet.Season.Autumn);
 		}
 	}
 }

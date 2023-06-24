@@ -16,6 +16,9 @@ public class Planet : MonoBehaviour {
 
     [SerializeField] private LineRenderer lineRenderer;
 
+    private Vector3 initialPosition; // this position is Winter (north hemisphere)    
+    private Vector3 initialEulerAngles;  
+
     public bool GizmosEnabled {
         get => gizmosEnabled;
         set {
@@ -62,17 +65,33 @@ public class Planet : MonoBehaviour {
         isRunning = true;
     }
 
+    public void MoveToSeason(Season season) {
+        transform.position = initialPosition;
+        switch (season) {
+            case Season.Spring:
+                transform.RotateAround(sun.transform.position, Vector3.up, 90);
+                break;
+            case Season.Summer:
+                transform.RotateAround(sun.transform.position, Vector3.up, 180);
+                break;
+            case Season.Autumn:
+                transform.RotateAround(sun.transform.position, Vector3.up, 270);
+                break;
+        }
+        transform.eulerAngles = initialEulerAngles;
+    }
+
     private void Update() {
+        if (GizmosEnabled) {
+            DrawLineRendererGizmos();
+        }
+        
         if (!isRunning) {
             return;
         }
         
         Orbit();
         Rotate();
-
-        if (GizmosEnabled) {
-            DrawLineRendererGizmos();
-        }
     }
 
     private void SetInitialTransform() {
@@ -81,8 +100,11 @@ public class Planet : MonoBehaviour {
         var rotation = Vector3.zero;
         rotation.x = inclination;
         transform.eulerAngles = rotation;
-    }
 
+        this.initialPosition = transform.position;
+        this.initialEulerAngles = transform.eulerAngles;
+    }
+    
     private void ComputeValues(InitializationParameters initializationParameters) {
         orbitAngle =  1 / period * 360 / initializationParameters.yearDurationInSeconds;
         
@@ -142,5 +164,12 @@ public class Planet : MonoBehaviour {
         public GameObject sun;
         public float yearDurationInSeconds;
         public float dayDurationInSeconds;
+    }
+
+    public enum Season {
+        Winter,
+        Spring,
+        Summer,
+        Autumn
     }
 }
