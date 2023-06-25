@@ -2267,6 +2267,7 @@ MonoBehaviour:
   - {fileID: 190472252}
   - {fileID: 1615783581}
   - {fileID: 1175457062}
+  moon: {fileID: 5776247795948069817}
   cameraRig: {fileID: 790641939}
   sunPivot: {fileID: 673032687}
   earthPivot: {fileID: 111048495}
@@ -3084,6 +3085,90 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d23acd3fda018614a88f96427eee214e, type: 3}
+--- !u!1001 &5776247795948069816
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 844793371129863407, guid: 49e9802f922ea984fabe652d5d610691, type: 3}
+      propertyPath: ownRotationPeriod
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459202049341241594, guid: 49e9802f922ea984fabe652d5d610691, type: 3}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459202049341241594, guid: 49e9802f922ea984fabe652d5d610691, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.2724
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459202049341241594, guid: 49e9802f922ea984fabe652d5d610691, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.2724
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459202049341241594, guid: 49e9802f922ea984fabe652d5d610691, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.2724
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459202049341241594, guid: 49e9802f922ea984fabe652d5d610691, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459202049341241594, guid: 49e9802f922ea984fabe652d5d610691, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459202049341241594, guid: 49e9802f922ea984fabe652d5d610691, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459202049341241594, guid: 49e9802f922ea984fabe652d5d610691, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.99990946
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459202049341241594, guid: 49e9802f922ea984fabe652d5d610691, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.013459574
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459202049341241594, guid: 49e9802f922ea984fabe652d5d610691, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459202049341241594, guid: 49e9802f922ea984fabe652d5d610691, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459202049341241594, guid: 49e9802f922ea984fabe652d5d610691, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 1.5424
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459202049341241594, guid: 49e9802f922ea984fabe652d5d610691, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459202049341241594, guid: 49e9802f922ea984fabe652d5d610691, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459202049341241595, guid: 49e9802f922ea984fabe652d5d610691, type: 3}
+      propertyPath: m_Name
+      value: Moon
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 49e9802f922ea984fabe652d5d610691, type: 3}
+--- !u!114 &5776247795948069817 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 844793371129863407, guid: 49e9802f922ea984fabe652d5d610691, type: 3}
+  m_PrefabInstance: {fileID: 5776247795948069816}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0334b4829be85a459566d5389134e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6493072601937179789
 PrefabInstance:
   m_ObjectHideFlags: 0

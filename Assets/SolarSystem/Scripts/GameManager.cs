@@ -10,6 +10,7 @@ namespace SolarSystem {
 
 		[SerializeField] private GameObject sun;
 		[SerializeField] private Planet[] planets;
+		[SerializeField] private Planet moon;
 
 		[SerializeField] private GameObject cameraRig;
 		
@@ -17,11 +18,12 @@ namespace SolarSystem {
 		[SerializeField] private Transform earthPivot;
 
 		private CameraFadeToBlack cameraFadeToBlack;
-		
+		private Planet earth;
 		
 		private void Awake() {
 
 			cameraFadeToBlack = cameraRig.GetComponent<CameraFadeToBlack>();
+			earth = planets[0]; // TODO: get earth
 			
 			foreach (var planet in planets) {
 				planet.Initialize(new Planet.InitializationParameters {
@@ -30,6 +32,12 @@ namespace SolarSystem {
 					dayDurationInSeconds = gameParameters.DayDurationInSeconds
 				});
 			}
+			
+			moon.Initialize(new Planet.InitializationParameters {
+				sun = earth.gameObject,
+				yearDurationInSeconds = gameParameters.YearDurationInSeconds,
+				dayDurationInSeconds = gameParameters.DayDurationInSeconds
+			});
 		}
 
 		public void Start() {
@@ -40,6 +48,8 @@ namespace SolarSystem {
 			foreach (var planet in planets) {
 				planet.StartMovement();
 			}
+			
+			moon.StartMovement();
 
 			if (cameraRig.activeInHierarchy) {
 				cameraRig.transform.SetParent(sunPivot, false);
