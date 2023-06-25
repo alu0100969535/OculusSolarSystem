@@ -12,6 +12,8 @@ namespace SolarSystem {
 		[SerializeField] private Planet[] planets;
 		[SerializeField] private Planet moon;
 
+		[SerializeField] private CurrentTimeHelper timeHelper;
+
 		[SerializeField] private GameObject cameraRig;
 		
 		[SerializeField] private Transform sunPivot;
@@ -19,6 +21,7 @@ namespace SolarSystem {
 
 		private CameraFadeToBlack cameraFadeToBlack;
 		private Planet earth;
+		private float executionTime;
 		
 		private void Awake() {
 
@@ -38,6 +41,8 @@ namespace SolarSystem {
 				yearDurationInSeconds = gameParameters.YearDurationInSeconds,
 				dayDurationInSeconds = gameParameters.DayDurationInSeconds
 			});
+			
+			timeHelper.Initialize(gameParameters.DayDurationInSeconds);
 		}
 
 		public void Start() {
@@ -56,7 +61,11 @@ namespace SolarSystem {
 				sun.GetComponent<Renderer>().enabled = false;
 			}
 		}
-		
+
+		private void Update() {
+			timeHelper.SetCurrentExecutionTime(executionTime);
+			executionTime += Time.deltaTime;
+		}
 
 		public void SetSunCamera(bool value) {
 			if (!value) {
@@ -85,7 +94,7 @@ namespace SolarSystem {
 				planet.Initialize(new Planet.InitializationParameters {
 					sun = sun,
 					yearDurationInSeconds = value,
-					dayDurationInSeconds = value / 365.25f
+					dayDurationInSeconds = value / gameParameters.DaysInYear
 				});
 			}
 		}
