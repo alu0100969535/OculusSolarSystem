@@ -2,9 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using SolarSystem;
+using UnityEditor;
 using UnityEngine;
 
 public class Planet : MonoBehaviour {
+
+    [SerializeField] private bool updateSunPositionOnOrbit;
     
     [Header("Orbit")]
     [SerializeField] private float distanceFromSun;
@@ -50,6 +53,7 @@ public class Planet : MonoBehaviour {
     public void Initialize(InitializationParameters initializationParameters) {
         this.sun = initializationParameters.sun;
         ComputeValues(initializationParameters);
+        ComputeSunDependantValues();
         SetInitialTransform();
     }
 
@@ -82,7 +86,10 @@ public class Planet : MonoBehaviour {
     }
 
     private void Update() {
-        if (GizmosEnabled) {
+        if (GizmosEnabled || SceneView.lastActiveSceneView.drawGizmos) {
+            if (updateSunPositionOnOrbit) {
+                ComputeSunDependantValues();
+            }
             DrawLineRendererGizmos();
         }
         
@@ -97,7 +104,7 @@ public class Planet : MonoBehaviour {
     private void SetInitialTransform() {
         transform.position = (transform.position - sun.transform.position).normalized * distanceFromSun + sun.transform.position;
         
-        var rotation = Vector3.zero;
+        var rotation = transform.eulerAngles;
         rotation.x = inclination;
         transform.eulerAngles = rotation;
 
@@ -106,22 +113,29 @@ public class Planet : MonoBehaviour {
     }
     
     private void ComputeValues(InitializationParameters initializationParameters) {
-        orbitAngle =  1 / period * 360 / initializationParameters.yearDurationInSeconds;
+        orbitAngle =  1.0f / period * 360.0f / initializationParameters.yearDurationInSeconds;
         
         var angle = inclination * Math.PI/180;
         
         ownRotationAxis = new Vector3(0.0f, (float) Math.Cos(angle), (float) Math.Sin(angle));
-        ownRotationAngle = 1 / ownRotationPeriod * 360 / initializationParameters.dayDurationInSeconds;
+        ownRotationAngle = 1.0f / ownRotationPeriod * 360.0f / initializationParameters.dayDurationInSeconds;
+    }
 
+    private void ComputeSunDependantValues() {
         debugOrbitPoints = new Vector3[360];
         for (var i = 0; i < 360; i++) {
-            var angle2 = i * Math.PI/180;
-            debugOrbitPoints[i] = new Vector3(distanceFromSun * (float) Math.Cos(angle2), 0, distanceFromSun * (float) Math.Sin(angle2));
+            var angle2 = i * Math.PI / 180.0f;
+            debugOrbitPoints[i] = new Vector3(distanceFromSun * (float) Math.Cos(angle2), 0, distanceFromSun * (float) Math.Sin(angle2)) + sun.transform.position;
         }
     }
 
     private void Orbit() {
+        var eulerAngles = transform.eulerAngles;
         transform.RotateAround(sun.transform.position, Vector3.up, orbitAngle * Time.deltaTime);
+        transform.eulerAngles = eulerAngles;
+        if (updateSunPositionOnOrbit) {
+            transform.position = (transform.position - sun.transform.position).normalized * distanceFromSun + sun.transform.position;
+        }
     }
 
     private void Rotate() {
