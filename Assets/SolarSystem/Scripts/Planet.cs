@@ -113,12 +113,12 @@ public class Planet : MonoBehaviour {
     }
     
     private void ComputeValues(InitializationParameters initializationParameters) {
-        orbitAngle =  1.0f / period * 360.0f / initializationParameters.yearDurationInSeconds;
+        orbitAngle =  -1.0f / period * 360.0f / initializationParameters.yearDurationInSeconds;
         
         var angle = inclination * Math.PI/180;
         
         ownRotationAxis = new Vector3(0.0f, (float) Math.Cos(angle), (float) Math.Sin(angle));
-        ownRotationAngle = 1.0f / ownRotationPeriod * 360.0f / initializationParameters.dayDurationInSeconds;
+        ownRotationAngle = -1.0f / ownRotationPeriod * 360.0f / initializationParameters.dayDurationInSeconds;
     }
 
     private void ComputeSunDependantValues() {
