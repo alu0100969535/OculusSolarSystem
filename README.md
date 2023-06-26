@@ -20,6 +20,13 @@ Uses openXR runtime but only has Oculus support enabled.
 
 [Creating UI](https://developer.oculus.com/documentation/unity/unity-isdk-create-ui/)
 
+## Docs
+
+[Designing for Hands](https://developer.oculus.com/resources/hands-design-intro/)
+
+[Best practices](https://developer.oculus.com/resources/hands-design-bp/)
+
+[Hand grab interaction](https://developer.oculus.com/documentation/unity/unity-isdk-hand-grab-interaction)
 
 
 ## Execution in editor
