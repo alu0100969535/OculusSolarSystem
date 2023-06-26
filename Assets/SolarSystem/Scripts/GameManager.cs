@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace SolarSystem {
@@ -22,6 +21,7 @@ namespace SolarSystem {
 		private CameraFadeToBlack cameraFadeToBlack;
 		private Planet earth;
 		private float executionTime;
+		private float currentYearDuration;
 		
 		private void Awake() {
 
@@ -97,6 +97,16 @@ namespace SolarSystem {
 					dayDurationInSeconds = value / gameParameters.DaysInYear
 				});
 			}
+
+			ConvertExecutionTime(value);
+		}
+
+		private void ConvertExecutionTime(float newYearDuration) {
+			var ratio = currentYearDuration / newYearDuration;
+
+			executionTime *= ratio;
+
+			currentYearDuration = newYearDuration;
 		}
 
 		public void SetGizmos(bool value) {
