@@ -16,10 +16,12 @@ namespace SolarSystem {
 		private DateTime startingDate;
 
 
+		private void Awake() {
+			startingDate = new DateTime(startingDateYear, startingDateMonth, startingDateDay);
+		}
+
 		public void Initialize(float dayInSeconds) {
 			this.dayInSeconds = dayInSeconds;
-
-			startingDate = new DateTime(startingDateYear, startingDateMonth, startingDateDay);
 		}
 
 		public void SetCurrentExecutionTime(float time) {

@@ -256,7 +256,7 @@ GameObject:
   - component: {fileID: 111048496}
   - component: {fileID: 111048493}
   m_Layer: 0
-  m_Name: CameraFollowAngle
+  m_Name: CameraFollower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -269,7 +269,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 111048492}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -1099,6 +1099,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   screenFade: {fileID: 647673219}
   duration: 1
+--- !u!114 &790641941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790641939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 018d04934d3a4d3dad779cc390ba6b54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fadeToBlack: {fileID: 790641940}
+  cameraFollower: {fileID: 111048496}
+  sunPivot: {fileID: 673032687}
 --- !u!20 &825109199 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 2037080, guid: 126d619cf4daa52469682f85c1378b4a, type: 3}
@@ -2274,15 +2289,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameParameters: {fileID: 11400000, guid: e71fb85018bf1f6449ae5c25485020c6, type: 2}
   sun: {fileID: 231673458}
-  planets:
-  - {fileID: 190472252}
-  - {fileID: 1615783581}
-  - {fileID: 1175457062}
+  venus: {fileID: 1175457062}
+  earth: {fileID: 190472252}
+  mars: {fileID: 1615783581}
   moon: {fileID: 5776247795948069817}
+  cameraRig: {fileID: 790641941}
   timeHelper: {fileID: 1390740508}
-  cameraRig: {fileID: 790641939}
-  sunPivot: {fileID: 673032687}
-  earthPivot: {fileID: 111048495}
 --- !u!1 &1477965305
 GameObject:
   m_ObjectHideFlags: 0
@@ -3280,19 +3292,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7911450598337218524, guid: d23acd3fda018614a88f96427eee214e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.99973464
-      objectReference: {fileID: 0}
-    - target: {fileID: 7911450598337218524, guid: d23acd3fda018614a88f96427eee214e, type: 3}
-      propertyPath: m_LocalRotation.x
       value: -0.023036273
       objectReference: {fileID: 0}
     - target: {fileID: 7911450598337218524, guid: d23acd3fda018614a88f96427eee214e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.99973464
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911450598337218524, guid: d23acd3fda018614a88f96427eee214e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000044706738
+      value: -0.000000044706738
       objectReference: {fileID: 0}
     - target: {fileID: 7911450598337218524, guid: d23acd3fda018614a88f96427eee214e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.000000044706738
+      value: -0.000000044706738
       objectReference: {fileID: 0}
     - target: {fileID: 7911450598337218525, guid: d23acd3fda018614a88f96427eee214e, type: 3}
       propertyPath: m_Name

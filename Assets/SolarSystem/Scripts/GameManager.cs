@@ -7,40 +7,28 @@ namespace SolarSystem {
 
 		[SerializeField] private GameParameters gameParameters;
 
+		[Header("Stars")]
 		[SerializeField] private GameObject sun;
-		[SerializeField] private Planet[] planets;
+		
+		[SerializeField] private Planet venus;
+		[SerializeField] private Planet earth;
+		[SerializeField] private Planet mars;
+		
 		[SerializeField] private Planet moon;
 
+		[Header("References")]
+		[SerializeField] private CameraRig cameraRig;
+		 
 		[SerializeField] private CurrentTimeHelper timeHelper;
 
-		[SerializeField] private GameObject cameraRig;
-		
-		[SerializeField] private Transform sunPivot;
-		[SerializeField] private Transform earthPivot;
-
-		private CameraFadeToBlack cameraFadeToBlack;
-		private Planet earth;
+		private Planet[] planets;
 		private float executionTime;
 		private float currentYearDuration;
 		
 		private void Awake() {
+			planets = new[] { venus, earth, mars };
 
-			cameraFadeToBlack = cameraRig.GetComponent<CameraFadeToBlack>();
-			earth = planets[0]; // TODO: get earth
-			
-			foreach (var planet in planets) {
-				planet.Initialize(new Planet.InitializationParameters {
-					sun = sun,
-					yearDurationInSeconds = gameParameters.YearDurationInSeconds,
-					dayDurationInSeconds = gameParameters.DayDurationInSeconds
-				});
-			}
-			
-			moon.Initialize(new Planet.InitializationParameters {
-				sun = earth.gameObject,
-				yearDurationInSeconds = gameParameters.YearDurationInSeconds,
-				dayDurationInSeconds = gameParameters.DayDurationInSeconds
-			});
+			InitializeAllStars(gameParameters.YearDurationInSeconds, gameParameters.DayDurationInSeconds);
 			
 			timeHelper.Initialize(gameParameters.DayDurationInSeconds);
 		}
@@ -49,17 +37,8 @@ namespace SolarSystem {
 			if (!Application.IsPlaying(gameObject)) {
 				return;
 			}
-			
-			foreach (var planet in planets) {
-				planet.StartMovement();
-			}
-			
-			moon.StartMovement();
 
-			if (cameraRig.activeInHierarchy) {
-				cameraRig.transform.SetParent(sunPivot, false);
-				sun.GetComponent<Renderer>().enabled = false;
-			}
+			StartMovementAllStars();
 		}
 
 		private void Update() {
@@ -67,61 +46,35 @@ namespace SolarSystem {
 			executionTime += Time.deltaTime;
 		}
 
+		#region EventHandlers
+
 		public void SetSunCamera(bool value) {
 			if (!value) {
 				return;
 			}
 			
-			cameraFadeToBlack.Transition(() => {
-				cameraRig.transform.SetParent(sunPivot, false);
-				sun.GetComponent<Renderer>().enabled = false;
-			});
+			cameraRig.SetCamera(CameraPivot.Sun);
 		}
 
 		public void SetEarthCamera(bool value) {
 			if (!value) {
 				return;
 			}
-			
-			cameraFadeToBlack.Transition(() => {
-				cameraRig.transform.SetParent(earthPivot, false);
-				sun.GetComponent<Renderer>().enabled = true;
-			});
+
+			cameraRig.SetCamera(CameraPivot.Earth);
 		}
 
 		public void SetSpeed(Single value) {
-			foreach (var planet in planets) {
-				planet.Initialize(new Planet.InitializationParameters {
-					sun = sun,
-					yearDurationInSeconds = value,
-					dayDurationInSeconds = value / gameParameters.DaysInYear
-				});
-			}
-
+			InitializeAllStars(value, value / gameParameters.DaysInYear);
 			ConvertExecutionTime(value);
 		}
-
-		private void ConvertExecutionTime(float newYearDuration) {
-			var ratio = currentYearDuration / newYearDuration;
-
-			executionTime *= ratio;
-
-			currentYearDuration = newYearDuration;
-		}
-
+		
 		public void SetGizmos(bool value) {
 			foreach (var planet in planets) {
 				planet.GizmosEnabled = value;
 			}
 		}
-
-		public void SetSeason(Planet.Season season) {
-			foreach (var planet in planets) {
-				planet.PauseMovement();
-				planet.MoveToSeason(season);
-			}
-		}
-
+		
 		public void SetWinterSeason() {
 			SetSeason(Planet.Season.Winter);
 		}
@@ -137,5 +90,54 @@ namespace SolarSystem {
 		public void SetAutumnSeason() {
 			SetSeason(Planet.Season.Autumn);
 		}
+
+		#endregion
+
+		private void SetSeason(Planet.Season season) {
+			foreach (var planet in planets) {
+				planet.PauseMovement();
+				planet.MoveToSeason(season);
+			}
+		}
+		
+		private void ConvertExecutionTime(float newYearDuration) {
+			var ratio = currentYearDuration / newYearDuration;
+
+			executionTime *= ratio;
+
+			currentYearDuration = newYearDuration;
+			
+			timeHelper.Initialize(currentYearDuration / gameParameters.DaysInYear);
+			timeHelper.SetCurrentExecutionTime(executionTime);
+		}
+
+		private void InitializeAllStars(float yearDuration, float dayDuration) {
+			foreach (var planet in planets) {
+				planet.Initialize(new Planet.InitializationParameters {
+					sun = sun,
+					yearDurationInSeconds = yearDuration,
+					dayDurationInSeconds = dayDuration
+				});
+			}
+			
+			moon.Initialize(new Planet.InitializationParameters {
+				sun = earth.gameObject,
+				yearDurationInSeconds = yearDuration,
+				dayDurationInSeconds = dayDuration
+			});
+		}
+
+		private void StartMovementAllStars() {
+			foreach (var planet in planets) {
+				planet.StartMovement();
+			}
+			
+			moon.StartMovement();
+
+		}
+
+
+
+
 	}
 }
