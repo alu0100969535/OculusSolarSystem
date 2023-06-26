@@ -51,7 +51,7 @@ namespace SolarSystem {
 			
 			fadeToBlack.Transition(() => {
 				
-				transform.SetParent(pivot, false);
+				transform.SetParent(cameraFollower.transform, false);
 				sun.GetComponent<Renderer>().enabled = !isSunPivot;
 				cameraFollower.gameObject.SetActive(!isSunPivot);
 				if (!isSunPivot) {

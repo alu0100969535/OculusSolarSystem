@@ -28,6 +28,10 @@ namespace SolarSystem {
 			InitializeAllStars(gameParameters.YearDurationInSeconds, gameParameters.DayDurationInSeconds);
 			
 			timeHelper.Initialize(gameParameters.DayDurationInSeconds);
+			cameraRig.Initialize(new CameraRigInitializationData {
+				sun = sun,
+				earth = earth
+			});
 		}
 
 		public void Start() {
