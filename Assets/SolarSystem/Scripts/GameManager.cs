@@ -18,13 +18,10 @@ namespace SolarSystem {
 
 		[Header("References")]
 		[SerializeField] private CameraRig cameraRig;
-		 
 		[SerializeField] private CurrentTimeHelper timeHelper;
 
 		private Planet[] planets;
-		private float executionTime;
-		private float currentYearDuration;
-		
+
 		private void Awake() {
 			planets = new[] { venus, earth, mars };
 
@@ -39,11 +36,6 @@ namespace SolarSystem {
 			}
 
 			StartMovementAllStars();
-		}
-
-		private void Update() {
-			timeHelper.SetCurrentExecutionTime(executionTime);
-			executionTime += Time.deltaTime;
 		}
 
 		#region EventHandlers
@@ -65,8 +57,9 @@ namespace SolarSystem {
 		}
 
 		public void SetSpeed(Single value) {
-			InitializeAllStars(value, value / gameParameters.DaysInYear);
-			ConvertExecutionTime(value);
+			var dayDurationInSeconds = value / gameParameters.DaysInYear;
+			InitializeAllStars(value, dayDurationInSeconds);
+			timeHelper.SetSpeed(dayDurationInSeconds);
 		}
 		
 		public void SetGizmos(bool value) {
@@ -91,24 +84,30 @@ namespace SolarSystem {
 			SetSeason(Planet.Season.Autumn);
 		}
 
+		public void Pause() {
+			foreach (var planet in planets) {
+				planet.PauseMovement();
+			}
+			
+			moon.PauseMovement();
+			timeHelper.Pause();
+		}
+
 		#endregion
 
 		private void SetSeason(Planet.Season season) {
-			foreach (var planet in planets) {
+			/*foreach (var planet in planets) {
 				planet.PauseMovement();
 				planet.MoveToSeason(season);
 			}
-		}
-		
-		private void ConvertExecutionTime(float newYearDuration) {
-			var ratio = currentYearDuration / newYearDuration;
-
-			executionTime *= ratio;
-
-			currentYearDuration = newYearDuration;
-			
-			timeHelper.Initialize(currentYearDuration / gameParameters.DaysInYear);
-			timeHelper.SetCurrentExecutionTime(executionTime);
+			*/
+			earth.PauseMovement();
+			earth.MoveToSeason(season);
+			timeHelper.SetSeason(season);
+			earth.ResumeMovement();
+			/*foreach (var planet in planets) {
+				planet.ResumeMovement();
+			}*/
 		}
 
 		private void InitializeAllStars(float yearDuration, float dayDuration) {
