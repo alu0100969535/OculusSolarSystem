@@ -1628,20 +1628,8 @@ PrefabInstance:
       value: 5.000046
       objectReference: {fileID: 0}
     - target: {fileID: 6833211286372320426, guid: 07522e9c87f232f41ba5ed6b3f658cde, type: 3}
-      propertyPath: m_Value
-      value: 600
-      objectReference: {fileID: 0}
-    - target: {fileID: 6833211286372320426, guid: 07522e9c87f232f41ba5ed6b3f658cde, type: 3}
-      propertyPath: m_MaxValue
-      value: 900
-      objectReference: {fileID: 0}
-    - target: {fileID: 6833211286372320426, guid: 07522e9c87f232f41ba5ed6b3f658cde, type: 3}
-      propertyPath: m_MinValue
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 6833211286372320426, guid: 07522e9c87f232f41ba5ed6b3f658cde, type: 3}
-      propertyPath: m_Direction
-      value: 1
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6833211286372320426, guid: 07522e9c87f232f41ba5ed6b3f658cde, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -3168,22 +3156,6 @@ PrefabInstance:
     - target: {fileID: 1737758191395712400, guid: 7138c0d9a35b88d40b0c5358484a5503, type: 3}
       propertyPath: m_Name
       value: DateCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 1737758191395712411, guid: 7138c0d9a35b88d40b0c5358484a5503, type: 3}
-      propertyPath: autumnTime._dateTime
-      value: 22/09/2023 0:00:00
-      objectReference: {fileID: 0}
-    - target: {fileID: 1737758191395712411, guid: 7138c0d9a35b88d40b0c5358484a5503, type: 3}
-      propertyPath: springTime._dateTime
-      value: 20/03/2023 0:00:00
-      objectReference: {fileID: 0}
-    - target: {fileID: 1737758191395712411, guid: 7138c0d9a35b88d40b0c5358484a5503, type: 3}
-      propertyPath: summerTime._dateTime
-      value: 20/06/2023 0:00:00
-      objectReference: {fileID: 0}
-    - target: {fileID: 1737758191395712411, guid: 7138c0d9a35b88d40b0c5358484a5503, type: 3}
-      propertyPath: winterTime._dateTime
-      value: 21/12/2022 0:00:00
       objectReference: {fileID: 0}
     - target: {fileID: 1737758191395712412, guid: 7138c0d9a35b88d40b0c5358484a5503, type: 3}
       propertyPath: m_Pivot.x

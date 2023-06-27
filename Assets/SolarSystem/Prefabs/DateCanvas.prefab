@@ -162,7 +162,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &1737758191395712415
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +193,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1737758190937368479}
-  startingDateYear: 2022
-  startingDateMonth: 12
-  startingDateDay: 21
+  winterTime:
+    _dateTime: 21/12/2022 0:00:00
+  springTime:
+    _dateTime: 20/03/2023 0:00:00
+  summerTime:
+    _dateTime: 20/06/2023 0:00:00
+  autumnTime:
+    _dateTime: 22/09/2023 0:00:00
