@@ -1527,7 +1527,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.36, y: 0.73, z: 0.1}
+  m_Size: {x: 1.48, y: 0.85, z: 0.1}
   m_Center: {x: 0, y: -0.06, z: 0}
 --- !u!114 &6833211287588890367
 MonoBehaviour:
@@ -1570,14 +1570,14 @@ MonoBehaviour:
   _resetGrabOnGrabsUpdated: 1
   _scoringModifier:
     _positionRotationWeight: 0.8
-  _supportedGrabTypes: 3
+  _supportedGrabTypes: 1
   _pinchGrabRules:
     _thumbRequirement: 1
     _indexRequirement: 1
     _middleRequirement: 1
     _ringRequirement: 0
     _pinkyRequirement: 0
-    _unselectMode: 0
+    _unselectMode: 1
   _palmGrabRules:
     _thumbRequirement: 1
     _indexRequirement: 2
@@ -1603,7 +1603,6 @@ GameObject:
   - component: {fileID: 4352954211069529470}
   - component: {fileID: 4352954211069529471}
   - component: {fileID: 4352954211069529468}
-  - component: {fileID: 5566573158548235523}
   m_Layer: 0
   m_Name: Unity Canvas
   m_TagString: Untagged
@@ -1743,20 +1742,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
---- !u!114 &5566573158548235523
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4352954211069529458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9cf2a74d69b1c1e41916d2a7afdff5be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _facing: 0
-  _doubleSided: 0
 --- !u!1 &4352954211473228757
 GameObject:
   m_ObjectHideFlags: 0
@@ -4037,6 +4022,7 @@ GameObject:
   - component: {fileID: 2973905924209373604}
   - component: {fileID: 4010080472353797720}
   - component: {fileID: 9129687531196361351}
+  - component: {fileID: 7113257447424405395}
   m_Layer: 0
   m_Name: Surface
   m_TagString: Untagged
@@ -4053,7 +4039,7 @@ Transform:
   m_GameObject: {fileID: 8306905233267687239}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: -0.054, z: 0.016}
-  m_LocalScale: {x: 1.39, y: 0.73, z: 0.01}
+  m_LocalScale: {x: 1.3, y: 0.69, z: 0.01}
   m_Children: []
   m_Father: {fileID: 4352954210345625633}
   m_RootOrder: 2
@@ -4070,7 +4056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: efd927768041afd4d90e5d822283f0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _planeSurface: {fileID: 5566573158548235523}
+  _planeSurface: {fileID: 7113257447424405395}
   _clippers:
   - {fileID: 9129687531196361351}
 --- !u!114 &9129687531196361351
@@ -4087,6 +4073,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _position: {x: 0, y: 0, z: 0}
   _size: {x: 1, y: 1, z: 1}
+--- !u!114 &7113257447424405395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8306905233267687239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cf2a74d69b1c1e41916d2a7afdff5be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _facing: 0
+  _doubleSided: 0
 --- !u!1 &8657976703198594935
 GameObject:
   m_ObjectHideFlags: 0
