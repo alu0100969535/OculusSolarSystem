@@ -8,6 +8,7 @@ public class CameraFollower : MonoBehaviour {
     [SerializeField] private Transform planet;
     [SerializeField] private float distance;
     [SerializeField] private float angle;
+    [SerializeField] private Transform cameraPivot;
 
     private Transform _sun;
     private Transform _planet;
@@ -18,6 +19,8 @@ public class CameraFollower : MonoBehaviour {
     private Transform Planet => _planet != null ? _planet : planet;
     private float Distance => _distance != 0.0f ? _distance : distance;
     private float Angle => _angle != 0.0f ? _angle : angle;
+
+    public Transform CameraPivot => cameraPivot;
 
 
     public void Initialize(CameraFollowerInitializationData initializationData) {

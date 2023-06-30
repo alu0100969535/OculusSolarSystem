@@ -40,6 +40,11 @@ namespace SolarSystem {
 			}
 
 			StartMovementAllStars();
+			
+			foreach (var planet in planets) {
+				planet.transform.localScale *= 0.25f;
+			}
+			moon.transform.localScale *= 0.25f;
 		}
 
 		#region EventHandlers
@@ -121,6 +126,8 @@ namespace SolarSystem {
 					yearDurationInSeconds = yearDuration,
 					dayDurationInSeconds = dayDuration
 				});
+
+				planet.transform.localScale *= 0.25f;
 			}
 			
 			moon.Initialize(new Planet.InitializationParameters {
@@ -128,6 +135,8 @@ namespace SolarSystem {
 				yearDurationInSeconds = yearDuration,
 				dayDurationInSeconds = dayDuration
 			});
+			
+			moon.transform.localScale *= 0.25f;
 		}
 
 		private void StartMovementAllStars() {
@@ -136,7 +145,6 @@ namespace SolarSystem {
 			}
 			
 			moon.StartMovement();
-
 		}
 
 

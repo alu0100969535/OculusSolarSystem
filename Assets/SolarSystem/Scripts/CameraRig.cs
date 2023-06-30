@@ -80,10 +80,10 @@ namespace SolarSystem {
 				sun = sun.transform,
 				planet = pivot,
 				angle = 35.0f,
-				distance = 4.0f,
+				distance = 1.0f,
 			});
 			
-			transform.SetParent(cameraFollower.transform, false);
+			transform.SetParent(cameraFollower.CameraPivot, false);
 			sun.GetComponent<Renderer>().enabled = true;
 		}
 		
