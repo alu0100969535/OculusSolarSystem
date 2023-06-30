@@ -21,7 +21,8 @@ namespace SolarSystem {
 
 		public void Start() {
 			if (gameObject.activeInHierarchy) {
-				SetCamera(CameraPivot.Sun);
+				transform.SetParent(sunPivot, false);
+				sun.GetComponent<Renderer>().enabled = false;
 			}
 		}
 
@@ -51,7 +52,7 @@ namespace SolarSystem {
 			
 			fadeToBlack.Transition(() => {
 				
-				transform.SetParent(cameraFollower.transform, false);
+				transform.SetParent(pivot.transform, false);
 				sun.GetComponent<Renderer>().enabled = !isSunPivot;
 				cameraFollower.gameObject.SetActive(!isSunPivot);
 				if (!isSunPivot) {
