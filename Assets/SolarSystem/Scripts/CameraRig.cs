@@ -51,22 +51,37 @@ namespace SolarSystem {
 			var isSunPivot = pivot == sunPivot;
 			
 			fadeToBlack.Transition(() => {
-				
-				transform.SetParent(pivot.transform, false);
-				sun.GetComponent<Renderer>().enabled = !isSunPivot;
-				cameraFollower.gameObject.SetActive(!isSunPivot);
-				if (!isSunPivot) {
-					cameraFollower.Initialize(new CameraFollower.CameraFollowerInitializationData {
-						sun = sun.transform,
-						planet = pivot,
-						angle = 35.0f,
-						distance = 4.0f,
-					});
+
+				if (isSunPivot) {
+					SetSunPivot();
+					return;
 				}
+
+				SetPlanetPivot(pivot);
 			});
 		}
 		
+		private void SetSunPivot(){
+			cameraFollower.gameObject.SetActive(false);
+			transform.SetParent(sunPivot, false);
+			sun.GetComponent<Renderer>().enabled = false;
+		}
+
+		private void SetPlanetPivot(Transform pivot) {
+			cameraFollower.gameObject.SetActive(true);
+			cameraFollower.Initialize(new CameraFollower.CameraFollowerInitializationData {
+				sun = sun.transform,
+				planet = pivot,
+				angle = 35.0f,
+				distance = 4.0f,
+			});
+			
+			transform.SetParent(cameraFollower.transform, false);
+			sun.GetComponent<Renderer>().enabled = true;
+		} 
+		
 	}
+
 
 	public enum CameraPivot {
 		Sun,

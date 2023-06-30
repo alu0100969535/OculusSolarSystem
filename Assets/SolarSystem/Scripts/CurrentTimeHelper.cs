@@ -71,7 +71,6 @@ namespace SolarSystem {
 
 		private void RenderDate(DateTime date) {
 			text.text = date.ToString("d MMM yyyy");
-			Debug.Log(text.text);
 		}
 		
 		private void ConvertExecutionTime(float newDayDuration) {
