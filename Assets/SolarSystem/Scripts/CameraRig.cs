@@ -13,7 +13,7 @@ namespace SolarSystem {
 
 		private GameObject sun;
 		private Planet earth;
-		
+		private CameraPivot currentCameraPivot;
 
 		public void Initialize(CameraRigInitializationData initializationData) {
 			sun = initializationData.sun;
@@ -24,13 +24,17 @@ namespace SolarSystem {
 			if (gameObject.activeInHierarchy) {
 				transform.SetParent(sunPivot, false);
 				sun.GetComponent<Renderer>().enabled = false;
-				
 				canvas.SetParent(transform);
+				currentCameraPivot = CameraPivot.Sun;
 			}
 		}
 
 		public void SetCamera(CameraPivot pivot) {
 
+			if (currentCameraPivot == pivot) {
+				return;
+			}
+			
 			switch (pivot) {
 				case CameraPivot.Sun:
 					SetCameraPivot(sunPivot);
