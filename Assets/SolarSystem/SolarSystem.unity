@@ -717,6 +717,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4352954210345625637, guid: 07522e9c87f232f41ba5ed6b3f658cde, type: 3}
   m_PrefabInstance: {fileID: 1156615336}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &568571636 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4352954210345625633, guid: 07522e9c87f232f41ba5ed6b3f658cde, type: 3}
+  m_PrefabInstance: {fileID: 1156615336}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &569062474
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1184,6 +1189,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeToBlack: {fileID: 790641940}
+  uiCanvasPivot: {fileID: 1477965306}
+  canvas: {fileID: 568571636}
   cameraFollower: {fileID: 111048496}
   sunPivot: {fileID: 673032687}
 --- !u!20 &825109199 stripped

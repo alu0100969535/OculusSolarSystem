@@ -5,6 +5,7 @@ namespace SolarSystem {
 	public class CameraRig : MonoBehaviour {
 
 		[SerializeField] private CameraFadeToBlack fadeToBlack;
+		[SerializeField] private Transform canvas;
 
 		[Header("Camera Pivots")] 
 		[SerializeField] private CameraFollower cameraFollower;
@@ -23,6 +24,8 @@ namespace SolarSystem {
 			if (gameObject.activeInHierarchy) {
 				transform.SetParent(sunPivot, false);
 				sun.GetComponent<Renderer>().enabled = false;
+				
+				canvas.SetParent(transform);
 			}
 		}
 
@@ -54,17 +57,17 @@ namespace SolarSystem {
 
 				if (isSunPivot) {
 					SetSunPivot();
-					return;
 				}
-
-				SetPlanetPivot(pivot);
+				else {
+					SetPlanetPivot(pivot);
+				}
 			});
 		}
 		
 		private void SetSunPivot(){
-			cameraFollower.gameObject.SetActive(false);
 			transform.SetParent(sunPivot, false);
 			sun.GetComponent<Renderer>().enabled = false;
+			cameraFollower.gameObject.SetActive(false);
 		}
 
 		private void SetPlanetPivot(Transform pivot) {
@@ -78,7 +81,7 @@ namespace SolarSystem {
 			
 			transform.SetParent(cameraFollower.transform, false);
 			sun.GetComponent<Renderer>().enabled = true;
-		} 
+		}
 		
 	}
 
