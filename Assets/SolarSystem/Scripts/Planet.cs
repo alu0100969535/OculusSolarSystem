@@ -86,7 +86,14 @@ public class Planet : MonoBehaviour {
     }
 
     private void Update() {
-        if (GizmosEnabled || SceneView.lastActiveSceneView.drawGizmos) {
+
+        var drawGizmosUnityEditor = false;
+        
+#if UNITY_EDITOR
+        drawGizmosUnityEditor = SceneView.lastActiveSceneView.drawGizmos;
+#endif
+        
+        if (GizmosEnabled || drawGizmosUnityEditor) {
             if (updateSunPositionOnOrbit) {
                 ComputeSunDependantValues();
             }
