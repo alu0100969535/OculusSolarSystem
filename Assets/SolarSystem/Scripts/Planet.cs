@@ -21,6 +21,7 @@ public class Planet : MonoBehaviour {
 
     [Header("Others")] 
     [SerializeField] private Transform invariableTransform;
+    [SerializeField] private EarthPoints earthPoints;
 
     [Header("Gizmos")]
     [SerializeField] private RotationAxisGizmo rotationAxisGizmo;
@@ -92,6 +93,10 @@ public class Planet : MonoBehaviour {
                 break;
         }
         translationPivot.eulerAngles = Vector3.zero;
+    }
+
+    public void ShowRandomPoint() {
+        var point = earthPoints.GetPoint();
     }
 
     private void Update() {
