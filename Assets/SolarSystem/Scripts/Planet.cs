@@ -12,35 +12,37 @@ public class Planet : MonoBehaviour {
     [Header("Orbit")]
     [SerializeField] private float distanceFromSun;
     [SerializeField] [Tooltip("In years relative to Earth")] private float period;
+    [SerializeField] private Transform translationPivot;
     
     [Header("Rotation")]
     [SerializeField] [Tooltip("In degrees relative to Sun's Equator")] private float inclination;
     [SerializeField] private float ownRotationPeriod;
+    [SerializeField] private Transform rotationPivot;
 
-    [SerializeField] private LineRenderer lineRenderer;
+    [Header("Others")] 
+    [SerializeField] private Transform invariableTransform;
 
+    [Header("Gizmos")]
+    [SerializeField] private RotationAxisGizmo rotationAxisGizmo;
+    
     private Vector3 initialPosition; // this position is Winter (north hemisphere)    
-    private Vector3 initialEulerAngles;  
+    private bool transformInitialized;
 
     public bool GizmosEnabled {
         get => gizmosEnabled;
         set {
-
-            if (value) {
-                lineRenderer.loop = false;
-                lineRenderer.positionCount = 2;
-                lineRenderer.startWidth = 0.01f;
-                lineRenderer.endWidth = 0.01f;
-            }
-                
-            lineRenderer.enabled = value;
             gizmosEnabled = value;
+            if (value) {
+                EnableRuntimeGizmos();
+            }
+            else {
+                DisableRuntimeGizmos();
+            }
         }
     }
 
     private GameObject sun;
-
-    private Vector3 ownRotationAxis;
+    
     private float ownRotationAngle;
 
     private float orbitAngle;
@@ -52,9 +54,16 @@ public class Planet : MonoBehaviour {
 
     public void Initialize(InitializationParameters initializationParameters) {
         this.sun = initializationParameters.sun;
-        ComputeValues(initializationParameters);
+
+        var size = initializationParameters.planetScale;
+        invariableTransform.localScale = new Vector3(size, size, size);
+        
         ComputeSunDependantValues();
         SetInitialTransform();
+    }
+
+    public void SetParameters(float yearDurationInSeconds, float dayDurationInSeconds) {
+        ComputeValues(yearDurationInSeconds, dayDurationInSeconds);
     }
 
     public void PauseMovement() {
@@ -70,19 +79,19 @@ public class Planet : MonoBehaviour {
     }
 
     public void MoveToSeason(Season season) {
-        transform.position = initialPosition;
+        translationPivot.position = initialPosition;
         switch (season) {
             case Season.Spring:
-                transform.RotateAround(sun.transform.position, Vector3.up, 90);
+                translationPivot.RotateAround(sun.transform.position, Vector3.up, 90);
                 break;
             case Season.Summer:
-                transform.RotateAround(sun.transform.position, Vector3.up, 180);
+                translationPivot.RotateAround(sun.transform.position, Vector3.up, 180);
                 break;
             case Season.Autumn:
-                transform.RotateAround(sun.transform.position, Vector3.up, 270);
+                translationPivot.RotateAround(sun.transform.position, Vector3.up, 270);
                 break;
         }
-        transform.eulerAngles = initialEulerAngles;
+        translationPivot.eulerAngles = Vector3.zero;
     }
 
     private void Update() {
@@ -97,35 +106,35 @@ public class Planet : MonoBehaviour {
             if (updateSunPositionOnOrbit) {
                 ComputeSunDependantValues();
             }
-            DrawLineRendererGizmos();
         }
         
         if (!isRunning) {
             return;
         }
-        
+
         Orbit();
         Rotate();
     }
 
     private void SetInitialTransform() {
-        transform.position = (transform.position - sun.transform.position).normalized * distanceFromSun + sun.transform.position;
-        
-        var rotation = transform.eulerAngles;
-        rotation.x = inclination;
-        transform.eulerAngles = rotation;
+        if (transformInitialized) {
+            translationPivot.position = initialPosition;
+            return;
+        }
 
-        this.initialPosition = transform.position;
-        this.initialEulerAngles = transform.eulerAngles;
+        translationPivot.position = (translationPivot.position - sun.transform.position).normalized * distanceFromSun + sun.transform.position;
+        
+        var rotation = invariableTransform.eulerAngles;
+        rotation.x = inclination;
+        invariableTransform.eulerAngles = rotation;
+
+        initialPosition = translationPivot.position;
+        transformInitialized = true;
     }
     
-    private void ComputeValues(InitializationParameters initializationParameters) {
-        orbitAngle =  -1.0f / period * 360.0f / initializationParameters.yearDurationInSeconds;
-        
-        var angle = inclination * Math.PI/180;
-        
-        ownRotationAxis = new Vector3(0.0f, (float) Math.Cos(angle), (float) Math.Sin(angle));
-        ownRotationAngle = -1.0f / ownRotationPeriod * 360.0f / initializationParameters.dayDurationInSeconds;
+    private void ComputeValues(float yearDurationInSeconds, float dayDurationInSeconds) {
+        orbitAngle =  -1.0f / period * 360.0f / yearDurationInSeconds;
+        ownRotationAngle = -1.0f / ownRotationPeriod * 360.0f / dayDurationInSeconds;
     }
 
     private void ComputeSunDependantValues() {
@@ -137,25 +146,25 @@ public class Planet : MonoBehaviour {
     }
 
     private void Orbit() {
-        var eulerAngles = transform.eulerAngles;
-        transform.RotateAround(sun.transform.position, Vector3.up, orbitAngle * Time.deltaTime);
-        transform.eulerAngles = eulerAngles;
+        translationPivot.RotateAround(sun.transform.position, Vector3.up, orbitAngle * Time.deltaTime);
+        translationPivot.eulerAngles = Vector3.zero;
+        
         if (updateSunPositionOnOrbit) {
-            transform.position = (transform.position - sun.transform.position).normalized * distanceFromSun + sun.transform.position;
+            translationPivot.position = (translationPivot.position - sun.transform.position).normalized * distanceFromSun + sun.transform.position;
         }
     }
 
     private void Rotate() {
-        transform.Rotate(ownRotationAxis, ownRotationAngle * Time.deltaTime, Space.World);
+        rotationPivot.Rotate(rotationPivot.up, ownRotationAngle * Time.deltaTime, Space.World);
     }
 
     private void OnDrawGizmos() {
         Gizmos.color = Color.yellow;
         
-        Gizmos.DrawLine(
+        /*Gizmos.DrawLine(
             transform.position + ownRotationAxis,
             transform.position - ownRotationAxis
-        );
+        );*/
 
         if (debugOrbitPoints == null) {
             return;
@@ -172,19 +181,17 @@ public class Planet : MonoBehaviour {
         }
     }
 
-    private void DrawLineRendererGizmos() {
-        var point1 = transform.position + ownRotationAxis;
-        var point2 = transform.position - ownRotationAxis;
+    private void EnableRuntimeGizmos() {
+        rotationAxisGizmo.gameObject.SetActive(true);
+    }
 
-
-        lineRenderer.gameObject.SetActive(true);
-        lineRenderer.SetPositions(new []{point1, point2});
+    private void DisableRuntimeGizmos() {
+        rotationAxisGizmo.gameObject.SetActive(false);
     }
 
     public struct InitializationParameters {
         public GameObject sun;
-        public float yearDurationInSeconds;
-        public float dayDurationInSeconds;
+        public float planetScale;
     }
 
     public enum Season {

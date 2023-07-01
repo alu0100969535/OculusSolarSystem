@@ -25,7 +25,8 @@ namespace SolarSystem {
 		private void Awake() {
 			planets = new[] { venus, earth, mars };
 
-			InitializeAllStars(gameParameters.YearDurationInSeconds, gameParameters.DayDurationInSeconds);
+			InitializeAllStars(1.0f);
+			SetSpeedAllStars(gameParameters.YearDurationInSeconds, gameParameters.DayDurationInSeconds);
 			
 			timeHelper.Initialize(gameParameters.DayDurationInSeconds);
 			cameraRig.Initialize(new CameraRigInitializationData {
@@ -39,12 +40,8 @@ namespace SolarSystem {
 				return;
 			}
 
+			InitializeAllStars(0.25f);
 			StartMovementAllStars();
-			
-			foreach (var planet in planets) {
-				planet.transform.localScale *= 0.25f;
-			}
-			moon.transform.localScale *= 0.25f;
 		}
 
 		#region EventHandlers
@@ -67,7 +64,7 @@ namespace SolarSystem {
 
 		public void SetSpeed(Single value) {
 			var dayDurationInSeconds = value / gameParameters.DaysInYear;
-			InitializeAllStars(value, dayDurationInSeconds);
+			SetSpeedAllStars(value, dayDurationInSeconds);
 			timeHelper.SetSpeed(dayDurationInSeconds);
 		}
 		
@@ -75,6 +72,8 @@ namespace SolarSystem {
 			foreach (var planet in planets) {
 				planet.GizmosEnabled = value;
 			}
+
+			moon.GizmosEnabled = value;
 		}
 		
 		public void SetWinterSeason() {
@@ -119,24 +118,26 @@ namespace SolarSystem {
 			}*/
 		}
 
-		private void InitializeAllStars(float yearDuration, float dayDuration) {
+		private void InitializeAllStars(float scale) {
 			foreach (var planet in planets) {
 				planet.Initialize(new Planet.InitializationParameters {
 					sun = sun,
-					yearDurationInSeconds = yearDuration,
-					dayDurationInSeconds = dayDuration
+					planetScale = scale
 				});
-
-				planet.transform.localScale *= 0.25f;
 			}
 			
 			moon.Initialize(new Planet.InitializationParameters {
 				sun = earth.gameObject,
-				yearDurationInSeconds = yearDuration,
-				dayDurationInSeconds = dayDuration
+				planetScale = scale
 			});
+		}
+
+		private void SetSpeedAllStars(float yearDurationInSeconds, float dayDurationInSeconds) {
+			foreach (var planet in planets) {
+				planet.SetParameters(yearDurationInSeconds, dayDurationInSeconds);
+			}
 			
-			moon.transform.localScale *= 0.25f;
+			moon.SetParameters(yearDurationInSeconds, dayDurationInSeconds);
 		}
 
 		private void StartMovementAllStars() {
