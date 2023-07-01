@@ -49,6 +49,9 @@ Uses openXR runtime but only has Oculus support enabled.
 ### Changing camera from center of the solar system to following Earth (with transition animation!)
 ![](img/ChangeCamera.gif)
 
+### Grabbing a rotation axis of Earth
+![](img/grabRotationAxis.gif)
+
 ## Resources
 
 [Planets textures and skybox](https://www.solarsystemscope.com/textures/)
