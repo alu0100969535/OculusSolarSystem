@@ -26,7 +26,7 @@ namespace SolarSystem {
 		}
 
 
-		public void SetCamera(CameraPivot pivot, Action midAnimationCallback = null) {
+		public void SetCamera(CameraPivot pivot, Action midAnimationCallback = null, Action endAnimationCallback = null) {
 
 			if (currentCameraPivot == pivot) {
 				return;
@@ -34,10 +34,10 @@ namespace SolarSystem {
 			
 			switch (pivot) {
 				case CameraPivot.Sun:
-					SetCameraPivot(sunPivot, midAnimationCallback);
+					SetCameraPivot(sunPivot, midAnimationCallback, endAnimationCallback);
 					break;
 				case CameraPivot.Earth:
-					SetCameraPivot(earth.transform, midAnimationCallback);
+					SetCameraPivot(earth.transform, midAnimationCallback, endAnimationCallback);
 					break;
 				case CameraPivot.Moon:
 					break;
@@ -54,20 +54,20 @@ namespace SolarSystem {
 			currentCameraPivot = pivot;
 		}
 		
-		private void SetCameraPivot(Transform pivot, Action action = null) {
+		private void SetCameraPivot(Transform pivot, Action action = null, Action endAction = null) {
 
 			var isSunPivot = pivot == sunPivot;
 			
 			fadeToBlack.Transition(() => {
+				action?.Invoke();
+				
 				if (isSunPivot) {
 					SetSunPivot();
 				}
 				else {
 					SetPlanetPivot(pivot);
 				}
-				
-				action?.Invoke();
-			});
+			}, endAction);
 		}
 		
 		private void SetSunPivot(){

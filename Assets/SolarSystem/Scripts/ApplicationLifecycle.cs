@@ -30,6 +30,7 @@ namespace SolarSystem {
 			cameraRig.SetCamera(CameraPivot.Earth, () => {
 				mainMenuCanvas.SetActive(false);
 				gameManager.InitializeSimulation();
+			}, () => {
 				gameManager.StartQuiz();
 			});
 		}

@@ -8,18 +8,19 @@ namespace SolarSystem {
 		[SerializeField] private OVRScreenFade screenFade;
 		[SerializeField] private float duration;
 
-		public void Transition(Action midTransitionCallback) {
-			StartCoroutine(MakeTransition(midTransitionCallback));
+		public void Transition(Action midTransitionCallback, Action endAnimationCallback = null) {
+			StartCoroutine(MakeTransition(midTransitionCallback, endAnimationCallback));
 		}
 
-		private IEnumerator MakeTransition(Action callback) {
+		private IEnumerator MakeTransition(Action callback, Action endAnimationCallback) {
 			
 			yield return Fade(0f, 1f, duration / 2);
 
 			callback();
 
 			yield return Fade(1f, 0f, duration / 2);
-
+			
+			endAnimationCallback?.Invoke();
 		}
 
 		private IEnumerator Fade(float start, float end, float duration) {
