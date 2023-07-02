@@ -19,7 +19,8 @@ namespace SolarSystem {
 		[Header("References")]
 		[SerializeField] private CameraRig cameraRig;
 		[SerializeField] private CurrentTimeHelper timeHelper;
-
+		[SerializeField] private GameObject quizCameraVisor;
+ 
 		private CelestialBody[] planets;
 		private CelestialBody[] bodies;
 
@@ -36,7 +37,7 @@ namespace SolarSystem {
 				earth = earth
 			});*/
 		}
-
+		
 		/*public void Start() {
 			if (!Application.IsPlaying(gameObject)) {
 				return;
@@ -47,17 +48,18 @@ namespace SolarSystem {
 		}*/
 
 		public void Initialize() {
-			Enable();
-
 			InitializeAllStars(0.25f);
-			SetSpeedAllStars(gameParameters.YearDurationInSeconds, gameParameters.DayDurationInSeconds);
 			
 			timeHelper.Initialize(gameParameters.DayDurationInSeconds);
 			cameraRig.Initialize(new CameraRigInitializationData {
 				sun = sun,
 				earth = earth
 			});
-			
+		}
+
+		public void InitializeSimulation() {
+			Enable();
+			SetSpeedAllStars(gameParameters.YearDurationInSeconds, gameParameters.DayDurationInSeconds);
 			StartMovementAllStars();
 		}
 
@@ -77,6 +79,18 @@ namespace SolarSystem {
 			
 			sun.SetActive(true);
 			timeHelper.gameObject.SetActive(true);
+		}
+
+		public void StartQuiz() {
+			earth.ShowRandomPoint();
+			
+			quizCameraVisor.SetActive(true);
+			
+			var newPosition = cameraRig.CenterEyeTransform.position;
+			newPosition += cameraRig.CenterEyeTransform.forward * 0.5f;
+			
+			quizCameraVisor.transform.position = newPosition;
+			quizCameraVisor.transform.LookAt(cameraRig.CenterEyeTransform);
 		}
 
 		#region EventHandlers

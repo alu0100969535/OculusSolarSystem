@@ -15,49 +15,63 @@ namespace SolarSystem {
 			ShowMainMenu();
 		}
 
+		public void StartSandboxMode() {
+			gameManager.Initialize();
+			
+			cameraRig.SetCamera(CameraPivot.Sun, () => {
+				mainMenuCanvas.SetActive(false);
+				gameManager.InitializeSimulation();
+			});
+		}
+
+		public void StartQuizMode() {
+			gameManager.Initialize();
+			
+			cameraRig.SetCamera(CameraPivot.Earth, () => {
+				mainMenuCanvas.SetActive(false);
+				gameManager.InitializeSimulation();
+				gameManager.StartQuiz();
+			});
+		}
+
 		private void ShowMainMenu() {
 			gameManager.Disable();
 			mainMenuCanvas.SetActive(true);
 
-			if (!OVRManager.isHmdPresent) {
-				OVRManager.HMDMounted += HandleHMDMounted;
-				return;
-			}
-			
+			OVRManager.HMDMounted += HandleHMDMounted;
 			StartCoroutine(MoveUIAnimation());
 		}
-
-		public void StartSandboxMode() {
-			cameraRig.SetCamera(CameraPivot.Sun, () => {
-				mainMenuCanvas.SetActive(false);
-				gameManager.Initialize();
-			});
-		}
-
+		
 		private void HandleHMDMounted() {
-			OVRManager.HMDMounted -= HandleHMDMounted;
 			StartCoroutine(MoveUIAnimation());
 		}
 
 		private IEnumerator MoveUIAnimation() {
-
-			var targetYPosition = cameraRig.CenterEyeTransform.position.y;
+			
+			var targetPosition = cameraRig.CenterEyeTransform.position + cameraRig.CenterEyeTransform.forward * 1;
 			var initialPosition = mainMenuCanvas.transform.position;
+
+			var initialYEulerAngles = mainMenuCanvas.transform.eulerAngles.y;
+			var targetYEulerAngles = cameraRig.CenterEyeTransform.eulerAngles.y;
+			
 			var duration = 1f;
 			var time = 0f;
 
 			while (time < duration) {
 
 				var lerpIndex = mainMenuAnimationCurve.Evaluate(time / duration);
-				var newY = Mathf.Lerp(initialPosition.y, targetYPosition, lerpIndex);
-
-				var newPosition = new Vector3(initialPosition.x, newY, initialPosition.z);
+				
+				var newPosition = Vector3.Lerp(initialPosition, targetPosition, lerpIndex);
 				mainMenuCanvas.transform.position = newPosition;
+
+				var newYEulerAngles = Mathf.Lerp(initialYEulerAngles, targetYEulerAngles, lerpIndex);
+				var newEulerAngles = mainMenuCanvas.transform.eulerAngles;
+				newEulerAngles.y = newYEulerAngles;
+				mainMenuCanvas.transform.eulerAngles = newEulerAngles;
 				
 				yield return null;
 				time += Time.deltaTime;
 			}
-
 		}
 		
 	}

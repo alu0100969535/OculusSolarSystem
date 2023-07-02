@@ -72,10 +72,6 @@ PrefabInstance:
       value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 5488205592368720685, guid: 6e79011cd11341f428cd9b1f6987b4c6, type: 3}
-      propertyPath: rotationAxisGizmo
-      value: 
-      objectReference: {fileID: 7910874292173027839}
-    - target: {fileID: 5488205592368720685, guid: 6e79011cd11341f428cd9b1f6987b4c6, type: 3}
       propertyPath: invariableTransform
       value: 
       objectReference: {fileID: 5389076130349965887}
@@ -148,14 +144,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3944853728982386356, guid: 6e79011cd11341f428cd9b1f6987b4c6, type: 3}
   m_PrefabInstance: {fileID: 6270780282651294038}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7910874292173027839 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4237706036704313513, guid: 6e79011cd11341f428cd9b1f6987b4c6, type: 3}
-  m_PrefabInstance: {fileID: 6270780282651294038}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2c477832566424d9035410bdf924a1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

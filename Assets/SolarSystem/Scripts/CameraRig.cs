@@ -59,14 +59,14 @@ namespace SolarSystem {
 			var isSunPivot = pivot == sunPivot;
 			
 			fadeToBlack.Transition(() => {
-				action?.Invoke();
-
 				if (isSunPivot) {
 					SetSunPivot();
 				}
 				else {
 					SetPlanetPivot(pivot);
 				}
+				
+				action?.Invoke();
 			});
 		}
 		
