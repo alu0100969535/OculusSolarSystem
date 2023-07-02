@@ -55,7 +55,7 @@ public class CelestialBody : MonoBehaviour {
         this.sun = initializationParameters.sun;
 
         var size = initializationParameters.planetScale;
-        invariableTransform.localScale = new Vector3(size, size, size);
+        transform.localScale = new Vector3(size, size, size);
         
         ComputeSunDependantValues();
         SetInitialTransform();
