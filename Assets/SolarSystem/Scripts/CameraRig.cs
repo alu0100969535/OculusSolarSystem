@@ -86,6 +86,7 @@ namespace SolarSystem {
 			});
 			
 			transform.SetParent(cameraFollower.CameraPivot, false);
+			transform.LookAt(pivot);
 			sun.GetComponent<Renderer>().enabled = true;
 		}
 		

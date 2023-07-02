@@ -62,7 +62,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 183
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 1776678183721623824}
   - component: {fileID: 7111040579693077267}
   - component: {fileID: 8049579219003327521}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Seoul
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ Transform:
   m_GameObject: {fileID: 1714776949820225624}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.2294, y: 0.3238, z: 0.2977}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_Children: []
   m_Father: {fileID: 1834192040707785095}
   m_RootOrder: 8
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 5988584245986114797}
   - component: {fileID: 5565825886048970141}
   - component: {fileID: 992826923341350994}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Madrid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -197,7 +197,7 @@ Transform:
   m_GameObject: {fileID: 2256933058066953852}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.3466, y: 0.3525, z: -0.0212}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_Children: []
   m_Father: {fileID: 1834192040707785095}
   m_RootOrder: 0
@@ -333,7 +333,7 @@ MonoBehaviour:
   - {fileID: 2579396581003970186}
   - {fileID: 6356601201632501560}
   camera: {fileID: 7415479750385983748}
-  cameraDistance: 0.25
+  cameraDistance: 0.2
 --- !u!1 &2579396581003970186
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,7 +346,7 @@ GameObject:
   - component: {fileID: 7967410244945402665}
   - component: {fileID: 3092750488421037757}
   - component: {fileID: 25690259638077462}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: RioDeJaneiro
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +362,7 @@ Transform:
   m_GameObject: {fileID: 2579396581003970186}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.32482, y: -0.20166, z: -0.31687}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_Children: []
   m_Father: {fileID: 1834192040707785095}
   m_RootOrder: 10
@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 8889770922374955568}
   - component: {fileID: 3422791831559542092}
   - component: {fileID: 3573773294652773345}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Tokio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,7 +457,7 @@ Transform:
   m_GameObject: {fileID: 2828512255044992186}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.2982, y: 0.3107, z: 0.2497}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_Children: []
   m_Father: {fileID: 1834192040707785095}
   m_RootOrder: 3
@@ -536,7 +536,7 @@ GameObject:
   - component: {fileID: 5506519379479317953}
   - component: {fileID: 4890406598271086972}
   - component: {fileID: 1577075587570690012}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Estambul
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -552,7 +552,7 @@ Transform:
   m_GameObject: {fileID: 3011275324966104267}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.2988, y: 0.3578, z: 0.1686}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_Children: []
   m_Father: {fileID: 1834192040707785095}
   m_RootOrder: 7
@@ -631,7 +631,7 @@ GameObject:
   - component: {fileID: 7988935865593966381}
   - component: {fileID: 7136291410886375852}
   - component: {fileID: 7095562311346268529}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: "Mosc\xFA"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -647,7 +647,7 @@ Transform:
   m_GameObject: {fileID: 3302464258343087596}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.18, y: 0.4414, z: 0.1317}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_Children: []
   m_Father: {fileID: 1834192040707785095}
   m_RootOrder: 9
@@ -726,7 +726,7 @@ GameObject:
   - component: {fileID: 7598396747318468610}
   - component: {fileID: 8112965176767010031}
   - component: {fileID: 8263980756495648337}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Tenerife
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -742,7 +742,7 @@ Transform:
   m_GameObject: {fileID: 4243268956156602350}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.4123, y: 0.2438, z: -0.1197}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_Children: []
   m_Father: {fileID: 1834192040707785095}
   m_RootOrder: 1
@@ -821,7 +821,7 @@ GameObject:
   - component: {fileID: 7052147715118159696}
   - component: {fileID: 5351498602303946536}
   - component: {fileID: 398901183118143669}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Londres
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -837,7 +837,7 @@ Transform:
   m_GameObject: {fileID: 5746726730609603122}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.234, y: 0.4365, z: -0.0009}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_Children: []
   m_Father: {fileID: 1834192040707785095}
   m_RootOrder: 5
@@ -916,7 +916,7 @@ GameObject:
   - component: {fileID: 8359098688244527694}
   - component: {fileID: 3959414920710087071}
   - component: {fileID: 355630172819168467}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Sidney
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -932,7 +932,7 @@ Transform:
   m_GameObject: {fileID: 5813260113121330759}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.3506, y: -0.2979, z: 0.1906}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_Children: []
   m_Father: {fileID: 1834192040707785095}
   m_RootOrder: 6
@@ -1011,7 +1011,7 @@ GameObject:
   - component: {fileID: 9003138450203925377}
   - component: {fileID: 7386894332390234522}
   - component: {fileID: 8350640309552377392}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Beijing
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1027,7 +1027,7 @@ Transform:
   m_GameObject: {fileID: 6356601201632501560}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.1563, y: 0.3508, z: 0.3181}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_Children: []
   m_Father: {fileID: 1834192040707785095}
   m_RootOrder: 11
@@ -1106,7 +1106,7 @@ GameObject:
   - component: {fileID: 3869957653600778268}
   - component: {fileID: 6185830877556320297}
   - component: {fileID: 5947930193458722282}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: "M\xE9xico"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1122,7 +1122,7 @@ Transform:
   m_GameObject: {fileID: 6428957060261596540}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.0688, y: 0.1679, z: -0.4601}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_Children: []
   m_Father: {fileID: 1834192040707785095}
   m_RootOrder: 4
@@ -1201,7 +1201,7 @@ GameObject:
   - component: {fileID: 1814131651754035484}
   - component: {fileID: 3486860445613370534}
   - component: {fileID: 1423335209818200024}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: NuevaYork
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1217,7 +1217,7 @@ Transform:
   m_GameObject: {fileID: 7322669311624286209}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.1011, y: 0.3548, z: -0.3302}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalScale: {x: 0.02, y: 0.02, z: 0.02}
   m_Children: []
   m_Father: {fileID: 1834192040707785095}
   m_RootOrder: 2
