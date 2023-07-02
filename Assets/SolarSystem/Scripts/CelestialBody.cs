@@ -1,11 +1,9 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using SolarSystem;
 using UnityEditor;
 using UnityEngine;
 
-public class Planet : MonoBehaviour {
+public class CelestialBody : MonoBehaviour {
 
     [SerializeField] private bool updateSunPositionOnOrbit;
     

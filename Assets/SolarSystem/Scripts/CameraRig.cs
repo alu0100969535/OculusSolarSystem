@@ -13,7 +13,7 @@ namespace SolarSystem {
 		[SerializeField] private Transform sunPivot;
 
 		private GameObject sun;
-		private Planet earth;
+		private CelestialBody earth;
 		private CameraPivot currentCameraPivot = CameraPivot.Unassigned;
 
 		public Transform CenterEyeTransform => centerEyeTransform;
@@ -103,6 +103,6 @@ namespace SolarSystem {
 
 	public struct CameraRigInitializationData {
 		public GameObject sun;
-		public Planet earth;
+		public CelestialBody earth;
 	}
 }

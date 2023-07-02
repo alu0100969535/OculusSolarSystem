@@ -10,18 +10,18 @@ namespace SolarSystem {
 		[Header("Stars")]
 		[SerializeField] private GameObject sun;
 		
-		[SerializeField] private Planet venus;
-		[SerializeField] private Planet earth;
-		[SerializeField] private Planet mars;
+		[SerializeField] private CelestialBody venus;
+		[SerializeField] private CelestialBody earth;
+		[SerializeField] private CelestialBody mars;
 		
-		[SerializeField] private Planet moon;
+		[SerializeField] private CelestialBody moon;
 
 		[Header("References")]
 		[SerializeField] private CameraRig cameraRig;
 		[SerializeField] private CurrentTimeHelper timeHelper;
 
-		private Planet[] planets;
-		private Planet[] bodies;
+		private CelestialBody[] planets;
+		private CelestialBody[] bodies;
 
 		private void Awake() {
 			planets = new[] { venus, earth, mars };
@@ -110,19 +110,19 @@ namespace SolarSystem {
 		}
 		
 		public void SetWinterSeason() {
-			SetSeason(Planet.Season.Winter);
+			SetSeason(CelestialBody.Season.Winter);
 		}
 
 		public void SetSpringSeason() {
-			SetSeason(Planet.Season.Spring);
+			SetSeason(CelestialBody.Season.Spring);
 		}
 
 		public void SetSummerSeason() {
-			SetSeason(Planet.Season.Summer);
+			SetSeason(CelestialBody.Season.Summer);
 		}
 
 		public void SetAutumnSeason() {
-			SetSeason(Planet.Season.Autumn);
+			SetSeason(CelestialBody.Season.Autumn);
 		}
 
 		public void Pause() {
@@ -135,7 +135,7 @@ namespace SolarSystem {
 
 		#endregion
 
-		private void SetSeason(Planet.Season season) {
+		private void SetSeason(CelestialBody.Season season) {
 			/*foreach (var planet in planets) {
 				planet.PauseMovement();
 				planet.MoveToSeason(season);
@@ -152,13 +152,13 @@ namespace SolarSystem {
 
 		private void InitializeAllStars(float scale) {
 			foreach (var planet in planets) {
-				planet.Initialize(new Planet.InitializationParameters {
+				planet.Initialize(new CelestialBody.InitializationParameters {
 					sun = sun,
 					planetScale = scale
 				});
 			}
 			
-			moon.Initialize(new Planet.InitializationParameters {
+			moon.Initialize(new CelestialBody.InitializationParameters {
 				sun = earth.gameObject,
 				planetScale = scale
 			});
