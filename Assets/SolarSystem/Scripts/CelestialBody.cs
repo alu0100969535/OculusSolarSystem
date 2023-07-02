@@ -22,7 +22,7 @@ public class CelestialBody : MonoBehaviour {
     [SerializeField] private EarthPoints earthPoints;
 
     [Header("Gizmos")]
-    [SerializeField] private RotationAxisGizmo rotationAxisGizmo;
+    [SerializeField] private GameObject rotationAxisGizmo;
     
     private Vector3 initialPosition; // this position is Winter (north hemisphere)    
     private bool transformInitialized;

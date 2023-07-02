@@ -304,7 +304,7 @@ MonoBehaviour:
   rotationPivot: {fileID: 3944853728982386356}
   invariableTransform: {fileID: 2148095256896199529}
   earthPoints: {fileID: 0}
-  rotationAxisGizmo: {fileID: 4237706036704313513}
+  rotationAxisGizmo: {fileID: 6926057099777400219}
 --- !u!114 &5899359642689199612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -395,28 +395,22 @@ PrefabInstance:
       objectReference: {fileID: 8822848897275809592}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84f84dea1d2d2d340a19cb82b8027227, type: 3}
+--- !u!1 &6926057099777400219 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4667730137525623310, guid: 84f84dea1d2d2d340a19cb82b8027227, type: 3}
+  m_PrefabInstance: {fileID: 2367019736674617237}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2012007769820182625 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4266388243263619060, guid: 84f84dea1d2d2d340a19cb82b8027227, type: 3}
   m_PrefabInstance: {fileID: 2367019736674617237}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &4237706036704313513 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1879704020363134780, guid: 84f84dea1d2d2d340a19cb82b8027227, type: 3}
-  m_PrefabInstance: {fileID: 2367019736674617237}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b2c477832566424d9035410bdf924a1e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6306202326332986862 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8601161097258832507, guid: 84f84dea1d2d2d340a19cb82b8027227, type: 3}
   m_PrefabInstance: {fileID: 2367019736674617237}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 6926057099777400219}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 124f4583f657475469a45ab6fca8f921, type: 3}
