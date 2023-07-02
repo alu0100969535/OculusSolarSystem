@@ -6,6 +6,7 @@ namespace SolarSystem {
 
 		[SerializeField] private CameraFadeToBlack fadeToBlack;
 		[SerializeField] private Transform canvas;
+		[SerializeField] private Transform centerEyeTransform;
 
 		[Header("Camera Pivots")] 
 		[SerializeField] private CameraFollower cameraFollower;
@@ -13,23 +14,19 @@ namespace SolarSystem {
 
 		private GameObject sun;
 		private Planet earth;
-		private CameraPivot currentCameraPivot;
+		private CameraPivot currentCameraPivot = CameraPivot.Unassigned;
+
+		public Transform CenterEyeTransform => centerEyeTransform;
 
 		public void Initialize(CameraRigInitializationData initializationData) {
 			sun = initializationData.sun;
 			earth = initializationData.earth;
+			
+			canvas.SetParent(transform);
 		}
 
-		public void Start() {
-			if (gameObject.activeInHierarchy) {
-				transform.SetParent(sunPivot, false);
-				sun.GetComponent<Renderer>().enabled = false;
-				canvas.SetParent(transform);
-				currentCameraPivot = CameraPivot.Sun;
-			}
-		}
 
-		public void SetCamera(CameraPivot pivot) {
+		public void SetCamera(CameraPivot pivot, Action midAnimationCallback = null) {
 
 			if (currentCameraPivot == pivot) {
 				return;
@@ -37,10 +34,10 @@ namespace SolarSystem {
 			
 			switch (pivot) {
 				case CameraPivot.Sun:
-					SetCameraPivot(sunPivot);
+					SetCameraPivot(sunPivot, midAnimationCallback);
 					break;
 				case CameraPivot.Earth:
-					SetCameraPivot(earth.transform);
+					SetCameraPivot(earth.transform, midAnimationCallback);
 					break;
 				case CameraPivot.Moon:
 					break;
@@ -48,16 +45,21 @@ namespace SolarSystem {
 					break;
 				case CameraPivot.Mars:
 					break;
+				case CameraPivot.Unassigned:
+					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(pivot), pivot, null);
 			}
+
+			currentCameraPivot = pivot;
 		}
 		
-		private void SetCameraPivot(Transform pivot) {
+		private void SetCameraPivot(Transform pivot, Action action = null) {
 
 			var isSunPivot = pivot == sunPivot;
 			
 			fadeToBlack.Transition(() => {
+				action?.Invoke();
 
 				if (isSunPivot) {
 					SetSunPivot();
@@ -95,7 +97,8 @@ namespace SolarSystem {
 		Earth,
 		Moon,
 		Venus,
-		Mars
+		Mars,
+		Unassigned
 	}
 
 	public struct CameraRigInitializationData {

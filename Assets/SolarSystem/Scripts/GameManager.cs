@@ -21,11 +21,35 @@ namespace SolarSystem {
 		[SerializeField] private CurrentTimeHelper timeHelper;
 
 		private Planet[] planets;
+		private Planet[] bodies;
 
 		private void Awake() {
 			planets = new[] { venus, earth, mars };
+			bodies = new [] { venus, earth, mars, moon};
 
-			InitializeAllStars(1.0f);
+			/*InitializeAllStars(1.0f);
+			SetSpeedAllStars(gameParameters.YearDurationInSeconds, gameParameters.DayDurationInSeconds);
+			
+			timeHelper.Initialize(gameParameters.DayDurationInSeconds);
+			cameraRig.Initialize(new CameraRigInitializationData {
+				sun = sun,
+				earth = earth
+			});*/
+		}
+
+		/*public void Start() {
+			if (!Application.IsPlaying(gameObject)) {
+				return;
+			}
+
+			InitializeAllStars(0.25f);
+			StartMovementAllStars();
+		}*/
+
+		public void Initialize() {
+			Enable();
+
+			InitializeAllStars(0.25f);
 			SetSpeedAllStars(gameParameters.YearDurationInSeconds, gameParameters.DayDurationInSeconds);
 			
 			timeHelper.Initialize(gameParameters.DayDurationInSeconds);
@@ -33,15 +57,26 @@ namespace SolarSystem {
 				sun = sun,
 				earth = earth
 			});
+			
+			StartMovementAllStars();
 		}
 
-		public void Start() {
-			if (!Application.IsPlaying(gameObject)) {
-				return;
+		public void Disable() {
+			foreach (var body in bodies) {
+				body.gameObject.SetActive(false);
 			}
-
-			InitializeAllStars(0.25f);
-			StartMovementAllStars();
+			
+			sun.SetActive(false);
+			timeHelper.gameObject.SetActive(false);
+		}
+		
+		public void Enable() {
+			foreach (var body in bodies) {
+				body.gameObject.SetActive(true);
+			}
+			
+			sun.SetActive(true);
+			timeHelper.gameObject.SetActive(true);
 		}
 
 		#region EventHandlers
@@ -69,11 +104,9 @@ namespace SolarSystem {
 		}
 		
 		public void SetGizmos(bool value) {
-			foreach (var planet in planets) {
-				planet.GizmosEnabled = value;
+			foreach (var body in bodies) {
+				body.GizmosEnabled = value;
 			}
-
-			moon.GizmosEnabled = value;
 		}
 		
 		public void SetWinterSeason() {
@@ -93,11 +126,10 @@ namespace SolarSystem {
 		}
 
 		public void Pause() {
-			foreach (var planet in planets) {
-				planet.PauseMovement();
+			foreach (var body in bodies) {
+				body.PauseMovement();
 			}
 			
-			moon.PauseMovement();
 			timeHelper.Pause();
 		}
 
@@ -133,23 +165,16 @@ namespace SolarSystem {
 		}
 
 		private void SetSpeedAllStars(float yearDurationInSeconds, float dayDurationInSeconds) {
-			foreach (var planet in planets) {
-				planet.SetParameters(yearDurationInSeconds, dayDurationInSeconds);
+			foreach (var body in bodies) {
+				body.SetParameters(yearDurationInSeconds, dayDurationInSeconds);
 			}
-			
-			moon.SetParameters(yearDurationInSeconds, dayDurationInSeconds);
 		}
 
 		private void StartMovementAllStars() {
-			foreach (var planet in planets) {
-				planet.StartMovement();
+			foreach (var body in bodies) {
+				body.StartMovement();
 			}
-			
-			moon.StartMovement();
 		}
-
-
-
-
+		
 	}
 }
