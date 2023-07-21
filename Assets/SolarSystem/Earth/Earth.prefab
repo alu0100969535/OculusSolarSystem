@@ -1295,6 +1295,10 @@ PrefabInstance:
       propertyPath: earthPoints
       value: 
       objectReference: {fileID: 7175354057454931970}
+    - target: {fileID: 6926057099777400219, guid: 6e79011cd11341f428cd9b1f6987b4c6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8822848897275809592, guid: 6e79011cd11341f428cd9b1f6987b4c6, type: 3}
       propertyPath: m_RootOrder
       value: 0

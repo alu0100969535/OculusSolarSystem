@@ -10,43 +10,27 @@ namespace SolarSystem {
 		[Header("Stars")]
 		[SerializeField] private GameObject sun;
 		
-		[SerializeField] private CelestialBody venus;
-		[SerializeField] private CelestialBody earth;
-		[SerializeField] private CelestialBody mars;
+		[SerializeField] private Planet venus;
+		[SerializeField] private Planet earth;
+		[SerializeField] private Planet mars;
 		
-		[SerializeField] private CelestialBody moon;
+		[SerializeField] private Planet moon;
 
 		[Header("References")]
 		[SerializeField] private CameraRig cameraRig;
 		[SerializeField] private CurrentTimeHelper timeHelper;
 		[SerializeField] private GameObject quizCameraVisor;
+		[SerializeField] private ApplicationLifecycle applicationLifecycle;
+		[SerializeField] private GameObject canvas;
  
-		private CelestialBody[] planets;
-		private CelestialBody[] bodies;
+		private Planet[] planets;
+		private Planet[] bodies;
 
 		private void Awake() {
 			planets = new[] { venus, earth, mars };
 			bodies = new [] { venus, earth, mars, moon};
-
-			/*InitializeAllStars(1.0f);
-			SetSpeedAllStars(gameParameters.YearDurationInSeconds, gameParameters.DayDurationInSeconds);
-			
-			timeHelper.Initialize(gameParameters.DayDurationInSeconds);
-			cameraRig.Initialize(new CameraRigInitializationData {
-				sun = sun,
-				earth = earth
-			});*/
 		}
 		
-		/*public void Start() {
-			if (!Application.IsPlaying(gameObject)) {
-				return;
-			}
-
-			InitializeAllStars(0.25f);
-			StartMovementAllStars();
-		}*/
-
 		public void Initialize() {
 			InitializeAllStars(0.25f);
 			
@@ -82,6 +66,9 @@ namespace SolarSystem {
 		}
 
 		public void StartQuiz() {
+			
+			// TODO: Make quiz 
+			
 			earth.ShowRandomPoint();
 			
 			quizCameraVisor.SetActive(true);
@@ -94,6 +81,14 @@ namespace SolarSystem {
 		}
 
 		#region EventHandlers
+
+		public void ExitMode() {
+			cameraRig.SetCamera(CameraPivot.Unassigned, () => {
+				canvas.SetActive(false);
+			}, () => {
+				applicationLifecycle.ShowMainMenu();
+			});
+		}
 
 		public void SetSunCamera(bool value) {
 			if (!value) {
@@ -124,19 +119,19 @@ namespace SolarSystem {
 		}
 		
 		public void SetWinterSeason() {
-			SetSeason(CelestialBody.Season.Winter);
+			SetSeason(Planet.Season.Winter);
 		}
 
 		public void SetSpringSeason() {
-			SetSeason(CelestialBody.Season.Spring);
+			SetSeason(Planet.Season.Spring);
 		}
 
 		public void SetSummerSeason() {
-			SetSeason(CelestialBody.Season.Summer);
+			SetSeason(Planet.Season.Summer);
 		}
 
 		public void SetAutumnSeason() {
-			SetSeason(CelestialBody.Season.Autumn);
+			SetSeason(Planet.Season.Autumn);
 		}
 
 		public void Pause() {
@@ -149,7 +144,7 @@ namespace SolarSystem {
 
 		#endregion
 
-		private void SetSeason(CelestialBody.Season season) {
+		private void SetSeason(Planet.Season season) {
 			/*foreach (var planet in planets) {
 				planet.PauseMovement();
 				planet.MoveToSeason(season);
@@ -166,13 +161,13 @@ namespace SolarSystem {
 
 		private void InitializeAllStars(float scale) {
 			foreach (var planet in planets) {
-				planet.Initialize(new CelestialBody.InitializationParameters {
+				planet.Initialize(new Planet.InitializationParameters {
 					sun = sun,
 					planetScale = scale
 				});
 			}
 			
-			moon.Initialize(new CelestialBody.InitializationParameters {
+			moon.Initialize(new Planet.InitializationParameters {
 				sun = earth.gameObject,
 				planetScale = scale
 			});

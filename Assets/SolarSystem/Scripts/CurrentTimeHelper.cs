@@ -49,12 +49,12 @@ namespace SolarSystem {
 			this.dayInSeconds = dayInSeconds;
 		}
 
-		public void SetSeason(CelestialBody.Season season) {
+		public void SetSeason(Planet.Season season) {
 			executionTime = season switch {
-				CelestialBody.Season.Winter => 0,
-				CelestialBody.Season.Spring => GetExecutionTimeForTargetDate(springTime.dateTime),
-				CelestialBody.Season.Summer => GetExecutionTimeForTargetDate(summerTime.dateTime),
-				CelestialBody.Season.Autumn => GetExecutionTimeForTargetDate(autumnTime.dateTime),
+				Planet.Season.Winter => 0,
+				Planet.Season.Spring => GetExecutionTimeForTargetDate(springTime.dateTime),
+				Planet.Season.Summer => GetExecutionTimeForTargetDate(summerTime.dateTime),
+				Planet.Season.Autumn => GetExecutionTimeForTargetDate(autumnTime.dateTime),
 				_ => throw new ArgumentOutOfRangeException(nameof(season), season, null)
 			};
 		}

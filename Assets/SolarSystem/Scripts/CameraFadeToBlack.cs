@@ -26,7 +26,6 @@ namespace SolarSystem {
 		private IEnumerator Fade(float start, float end, float duration) {
 
 			var value = start;
-
 			var time = 0.0f;
 			
 			while (time < duration) {

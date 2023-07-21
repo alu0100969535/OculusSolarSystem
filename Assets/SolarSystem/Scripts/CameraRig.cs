@@ -11,9 +11,10 @@ namespace SolarSystem {
 		[Header("Camera Pivots")] 
 		[SerializeField] private CameraFollower cameraFollower;
 		[SerializeField] private Transform sunPivot;
+		[SerializeField] private Transform originalCameraPivot;
 
 		private GameObject sun;
-		private CelestialBody earth;
+		private Planet earth;
 		private CameraPivot currentCameraPivot = CameraPivot.Unassigned;
 
 		public Transform CenterEyeTransform => centerEyeTransform;
@@ -26,7 +27,7 @@ namespace SolarSystem {
 		}
 
 
-		public void SetCamera(CameraPivot pivot, Action midAnimationCallback = null, Action endAnimationCallback = null) {
+		public void SetCamera(CameraPivot pivot, Action midAnimationCallbackBeforeChange = null, Action midAnimationCallbackAfterChange = null,  Action endAnimationCallback = null) {
 
 			if (currentCameraPivot == pivot) {
 				return;
@@ -34,10 +35,10 @@ namespace SolarSystem {
 			
 			switch (pivot) {
 				case CameraPivot.Sun:
-					SetCameraPivot(sunPivot, midAnimationCallback, endAnimationCallback);
+					SetCameraPivot(sunPivot, midAnimationCallbackBeforeChange, midAnimationCallbackAfterChange, endAnimationCallback);
 					break;
 				case CameraPivot.Earth:
-					SetCameraPivot(earth.transform, midAnimationCallback, endAnimationCallback);
+					SetCameraPivot(earth.transform, midAnimationCallbackBeforeChange, midAnimationCallbackAfterChange, endAnimationCallback);
 					break;
 				case CameraPivot.Moon:
 					break;
@@ -46,6 +47,7 @@ namespace SolarSystem {
 				case CameraPivot.Mars:
 					break;
 				case CameraPivot.Unassigned:
+					SetCameraPivot(originalCameraPivot, midAnimationCallbackBeforeChange, midAnimationCallbackAfterChange, endAnimationCallback);
 					break;
 				default:
 					throw new ArgumentOutOfRangeException(nameof(pivot), pivot, null);
@@ -54,24 +56,24 @@ namespace SolarSystem {
 			currentCameraPivot = pivot;
 		}
 		
-		private void SetCameraPivot(Transform pivot, Action action = null, Action endAction = null) {
+		private void SetCameraPivot(Transform pivot, Action actionBefore = null, Action actionAfter = null, Action endAction = null) {
 
-			var isSunPivot = pivot == sunPivot;
+			var isPlanetPivot = pivot != sunPivot && pivot != originalCameraPivot;
 			
 			fadeToBlack.Transition(() => {
-				action?.Invoke();
-				
-				if (isSunPivot) {
-					SetSunPivot();
+				actionBefore?.Invoke();
+				if (!isPlanetPivot) {
+					SetDirectPivot(pivot);
 				}
 				else {
 					SetPlanetPivot(pivot);
 				}
+				actionAfter?.Invoke();
 			}, endAction);
 		}
 		
-		private void SetSunPivot(){
-			transform.SetParent(sunPivot, false);
+		private void SetDirectPivot(Transform pivot){
+			transform.SetParent(pivot, false);
 			sun.GetComponent<Renderer>().enabled = false;
 			cameraFollower.gameObject.SetActive(false);
 		}
@@ -86,7 +88,7 @@ namespace SolarSystem {
 			});
 			
 			transform.SetParent(cameraFollower.CameraPivot, false);
-			transform.LookAt(pivot);
+			//transform.LookAt(pivot);
 			sun.GetComponent<Renderer>().enabled = true;
 		}
 		
@@ -104,6 +106,6 @@ namespace SolarSystem {
 
 	public struct CameraRigInitializationData {
 		public GameObject sun;
-		public CelestialBody earth;
+		public Planet earth;
 	}
 }

@@ -3,7 +3,7 @@ using SolarSystem;
 using UnityEditor;
 using UnityEngine;
 
-public class CelestialBody : MonoBehaviour {
+public class Planet : MonoBehaviour {
 
     [SerializeField] private bool updateSunPositionOnOrbit;
     
@@ -162,12 +162,6 @@ public class CelestialBody : MonoBehaviour {
     }
 
     private void OnDrawGizmos() {
-        Gizmos.color = Color.yellow;
-        
-        /*Gizmos.DrawLine(
-            transform.position + ownRotationAxis,
-            transform.position - ownRotationAxis
-        );*/
 
         if (debugOrbitPoints == null) {
             return;

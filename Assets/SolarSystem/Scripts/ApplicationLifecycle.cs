@@ -30,17 +30,22 @@ namespace SolarSystem {
 			cameraRig.SetCamera(CameraPivot.Earth, () => {
 				mainMenuCanvas.SetActive(false);
 				gameManager.InitializeSimulation();
-			}, () => {
+			},null,
+				() => {
 				gameManager.StartQuiz();
 			});
 		}
 
-		private void ShowMainMenu() {
+		public void ShowMainMenu() {
 			gameManager.Disable();
 			mainMenuCanvas.SetActive(true);
 
 			OVRManager.HMDMounted += HandleHMDMounted;
 			StartCoroutine(MoveUIAnimation());
+		}
+
+		public void ExitGame() {
+			Application.Quit();
 		}
 		
 		private void HandleHMDMounted() {
